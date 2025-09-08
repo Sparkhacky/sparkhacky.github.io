@@ -1,4 +1,3 @@
-/* Lunr client-side search (simple, sin dependencias pesadas) */
 window.siteIndex = null;
 window.siteDocs = [];
 
@@ -7,7 +6,6 @@ async function loadIndex(){
   const res = await fetch('/search.json');
   const data = await res.json();
   window.siteDocs = data;
-  // Carga dinámica de lunr (versión min) si no existe
   if(typeof lunr === 'undefined'){
     const s = document.createElement('script');
     s.src = 'https://cdn.jsdelivr.net/npm/lunr/lunr.min.js';
@@ -29,7 +27,7 @@ window.siteSearch = async function(q){
   box.innerHTML = results.slice(0,10).map(r=>{
     const doc = window.siteDocs.find(d=>d.url===r.ref);
     return `<a class="search-item" href="${doc.url}">
-      <strong>${doc.title}</strong><br><small>${doc.type} · ${doc.date?.slice(0,10)||''}</small>
+      <strong>${doc.title}</strong><br><small>${doc.type} · ${(doc.date||'').slice(0,10)}</small>
     </a>`;
   }).join('') || '<div class="search-item">Sin resultados</div>';
 }

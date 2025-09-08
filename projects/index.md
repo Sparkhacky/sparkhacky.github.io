@@ -3,7 +3,6 @@ title: "Proyectos"
 layout: default
 permalink: /projects/
 ---
-
 <section class="container">
   <h1>Proyectos</h1>
   <div class="grid">

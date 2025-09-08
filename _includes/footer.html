@@ -1,10 +1,36 @@
 <footer class="site-footer">
-  <p>© {{ "now" | date: "%Y" }} Sparkhacky. {{ site.title }}</p>
-  <p>
-    <a href="https://x.com/tu_usuario" rel="me">X</a> ·
-    <a href="https://www.linkedin.com/in/tu-perfil" rel="me">LinkedIn</a> ·
-    <a href="mailto:tuemail@example.com">Email</a>
-  </p>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <h3>SparkHacky</h3>
+      <p>Transformando datos en inteligencia accionable. Análisis de ciberamenazas, writeups técnicos y desarrollo de herramientas CTI.</p>
+      <p class="tags">
+        <span class="badge">CTI Analyst</span>
+        <span class="badge">OSINT</span>
+        <span class="badge">Threat Hunter</span>
+      </p>
+    </div>
+    <div class="footer-nav">
+      <h4>Navegación</h4>
+      <ul>
+        <li><a href="{{ '/' | relative_url }}">Inicio</a></li>
+        <li><a href="{{ '/blog/' | relative_url }}">Blog</a></li>
+        <li><a href="{{ '/writeups/' | relative_url }}">Writeups</a></li>
+        <li><a href="{{ '/projects/' | relative_url }}">Proyectos</a></li>
+        <li><a href="{{ '/about/' | relative_url }}">About</a></li>
+      </ul>
+    </div>
+    <div class="footer-res">
+      <h4>Recursos</h4>
+      <ul>
+        <li><a href="{{ '/feed.xml' | relative_url }}">RSS Feed</a></li>
+        <li><a href="https://attack.mitre.org/" target="_blank" rel="noopener">MITRE ATT&CK</a></li>
+        <li><a href="https://www.cisa.gov/cybersecurity-advisories" target="_blank" rel="noopener">CISA Advisories</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© {{ "now" | date: "%Y" }} Mhaykol Eng · TLP:WHITE · Open Source</p>
+  </div>
+  <script src="{{ '/assets/js/menu.js' | relative_url }}" defer></script>
+  <script src="{{ '/assets/js/search.js' | relative_url }}" defer></script>
 </footer>
-<script src="{{ '/assets/js/menu.js' | relative_url }}" defer></script>
-<script src="{{ '/assets/js/search.js' | relative_url }}" defer></script>

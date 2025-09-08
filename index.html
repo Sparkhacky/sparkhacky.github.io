@@ -4,7 +4,8 @@ title: "Inicio"
 ---
 
 <section class="home-section">
-  <h2>Últimos briefings</h2>
+  <h2>Daily Intelligence Briefings</h2>
+  <p>Análisis diarios de amenazas emergentes, tendencias y recomendaciones para equipos SOC.</p>
   <div class="grid">
     {% for post in site.posts limit:6 %}
       {% include card.html item=post kind="post" %}
@@ -13,7 +14,7 @@ title: "Inicio"
 </section>
 
 <section class="home-section">
-  <h2>Writeups recientes</h2>
+  <h2>Writeups técnicos</h2>
   <div class="grid">
     {% assign items = site.writeups | sort: 'date' | reverse %}
     {% for w in items limit:3 %}
@@ -23,7 +24,7 @@ title: "Inicio"
 </section>
 
 <section class="home-section">
-  <h2>Proyectos</h2>
+  <h2>Proyectos & Herramientas</h2>
   <div class="grid">
     {% assign projs = site.projects | sort: 'date' | reverse %}
     {% for p in projs limit:3 %}

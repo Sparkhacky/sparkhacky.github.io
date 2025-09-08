@@ -3,9 +3,7 @@
 <article class="card">
   <a href="{{ item.url | relative_url }}">
     <h3>{{ item.title }}</h3>
-    {% if item.excerpt %}
-      <p>{{ item.excerpt | strip_html | truncate: 160 }}</p>
-    {% endif %}
+    {% if item.excerpt %}<p>{{ item.excerpt | strip_html | truncate: 160 }}</p>{% endif %}
     {% if item.tlp or item.confidence or item.mitre %}
       {% include cti-meta.html tlp=item.tlp confidence=item.confidence mitre=item.mitre %}
     {% endif %}

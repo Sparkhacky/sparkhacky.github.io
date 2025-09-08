@@ -1,18 +1,12 @@
 ---
 layout: default
 ---
-
 <article class="container prose">
   <header class="post-header">
     <h1>{{ page.title }}</h1>
     {% if page.stack %}<p class="meta">Stack: {{ page.stack | join: ", " }}</p>{% endif %}
+    {% include cti-meta.html tlp=page.tlp confidence=page.confidence mitre=page.mitre %}
   </header>
-
   {{ content }}
-
-  <section class="block">
-    {% if page.repo %}
-    <p><a class="btn" href="{{ page.repo }}">Repositorio</a></p>
-    {% endif %}
-  </section>
+  {% if page.repo %}<p><a class="btn" href="{{ page.repo }}">Repositorio</a></p>{% endif %}
 </article>

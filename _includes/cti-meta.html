@@ -1,16 +1,10 @@
-{% if include.tlp %}
-  {% assign tlp = include.tlp | upcase %}
-{% endif %}
+{% if include.tlp %}{% assign tlp = include.tlp | upcase %}{% endif %}
 <div class="cti-meta">
-  {% if tlp %}
-    <span class="badge tlp-{{ tlp | downcase }}" title="Traffic Light Protocol">TLP:{{ tlp }}</span>
-  {% endif %}
-  {% if include.confidence %}
-    <span class="badge conf-{{ include.confidence | downcase }}" title="Confianza del análisis">Confianza: {{ include.confidence | capitalize }}</span>
-  {% endif %}
+  {% if tlp %}<span class="badge tlp-{{ tlp | downcase }}" title="Traffic Light Protocol">TLP:{{ tlp }}</span>{% endif %}
+  {% if include.confidence %}<span class="badge conf-{{ include.confidence | downcase }}" title="Confianza del análisis">Confianza: {{ include.confidence | capitalize }}</span>{% endif %}
   {% if include.mitre %}
-    <ul class="mitre">
-      {% for t in include.mitre %}<li>{{ t }}</li>{% endfor %}
-    </ul>
+  <ul class="mitre">
+    {% for t in include.mitre %}<li>{{ t }}</li>{% endfor %}
+  </ul>
   {% endif %}
 </div>

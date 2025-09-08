@@ -3,7 +3,6 @@ title: "Writeups"
 layout: default
 permalink: /writeups/
 ---
-
 <section class="container">
   <h1>Writeups técnicos</h1>
   <div class="grid">
