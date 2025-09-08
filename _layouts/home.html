@@ -1,27 +1,33 @@
 ---
-layout: default
+layout: home
+title: "Inicio"
 ---
-<section class="hero">
-  <div class="panel">
-    <h1>{{ site.author.name }}</h1>
-    <p class="muted">Especialista en <strong>ciberinteligencia</strong>, <strong>pentesting</strong> y <strong>DFIR</strong>. Informes, writeups y proyectos con foco operativo.</p>
-  </div>
-  <div class="panel">
-    {% include search.html %}
+
+<section class="home-section">
+  <h2>Últimos briefings</h2>
+  <div class="grid">
+    {% for post in site.posts limit:6 %}
+      {% include card.html item=post kind="post" %}
+    {% endfor %}
   </div>
 </section>
 
-<h2>Últimos posts</h2>
-<div class="grid grid-3">
-  {% for post in site.posts limit:6 %}
-    {% include card.html item=post %}
-  {% endfor %}
-</div>
+<section class="home-section">
+  <h2>Writeups recientes</h2>
+  <div class="grid">
+    {% assign items = site.writeups | sort: 'date' | reverse %}
+    {% for w in items limit:3 %}
+      {% include card.html item=w kind="writeup" %}
+    {% endfor %}
+  </div>
+</section>
 
-<h2>Writeups recientes</h2>
-<div class="grid grid-3">
-  {% assign ws = site.writeups | sort: 'date' | reverse | slice: 0, 6 %}
-  {% for w in ws %}
-    {% include card.html item=w %}
-  {% endfor %}
-</div>
+<section class="home-section">
+  <h2>Proyectos</h2>
+  <div class="grid">
+    {% assign projs = site.projects | sort: 'date' | reverse %}
+    {% for p in projs limit:3 %}
+      {% include card.html item=p kind="project" %}
+    {% endfor %}
+  </div>
+</section>
