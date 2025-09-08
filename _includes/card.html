@@ -1,8 +1,8 @@
 <div class="card">
   <h3><a href="{{ include.item.url | relative_url }}">{{ include.item.title }}</a></h3>
   <p class="meta">
-    {% if include.item.date %}{{ include.item.date | date: "%d %b %Y" }} · {% endif %}
-    {% if include.item.categories %}{{ include.item.categories | join: " / " }}{% endif %}
+    {% if include.item.date %}{{ include.item.date | date: "%d %b %Y" }}{% endif %}
+    {% if include.item.categories %} · {{ include.item.categories | join: " / " }}{% endif %}
   </p>
   {% if include.item.excerpt %}{{ include.item.excerpt | strip_html | truncate: 140 }}{% endif %}
   <div>
