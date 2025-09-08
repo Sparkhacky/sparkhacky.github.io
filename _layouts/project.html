@@ -1,11 +1,18 @@
 ---
 layout: default
 ---
-<article class="card">
-  <h1>{{ page.title }}</h1>
-  <p class="meta">{{ page.date | date: "%d %b %Y" }}{% if page.stack %} · {{ page.stack | join: ", " }}{% endif %}</p>
+
+<article class="container prose">
+  <header class="post-header">
+    <h1>{{ page.title }}</h1>
+    {% if page.stack %}<p class="meta">Stack: {{ page.stack | join: ", " }}</p>{% endif %}
+  </header>
+
   {{ content }}
-  {% if page.repo %}
-  <p><a class="btn" href="{{ page.repo }}" target="_blank" rel="noopener">Repositorio ↗</a></p>
-  {% endif %}
+
+  <section class="block">
+    {% if page.repo %}
+    <p><a class="btn" href="{{ page.repo }}">Repositorio</a></p>
+    {% endif %}
+  </section>
 </article>
