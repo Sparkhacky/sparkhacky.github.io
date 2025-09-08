@@ -1,16 +1,35 @@
 ---
-title: "Search Index"
 layout: null
 permalink: /search.json
 ---
+
 [
-{% assign docs = site.pages | concat: site.posts | concat: site.writeups | concat: site.projects %}
-{% for doc in docs %}
+{%- for post in site.posts -%}
   {
-    "title": {{ doc.title | jsonify }},
-    "url": "{{ doc.url | relative_url }}",
-    "date": "{{ doc.date | date: "%Y-%m-%d" }}",
-    "content": {{ doc.content | strip_html | jsonify }}
+    "title": {{ post.title | jsonify }},
+    "url": {{ post.url | relative_url | jsonify }},
+    "date": "{{ post.date | date_to_xmlschema }}",
+    "content": {{ post.content | strip_html | jsonify }},
+    "type": "post",
+    "tags": {{ post.tags | jsonify }}
   }{% unless forloop.last %},{% endunless %}
-{% endfor %}
+{%- endfor -%}
+{%- assign all_w = site.writeups -%}
+{%- for w in all_w -%},{ 
+    "title": {{ w.title | jsonify }},
+    "url": {{ w.url | relative_url | jsonify }},
+    "date": "{{ w.date | date_to_xmlschema }}",
+    "content": {{ w.content | strip_html | jsonify }},
+    "type": "writeup",
+    "tags": {{ w.tags | jsonify }}
+}{% endfor %}
+{%- assign all_p = site.projects -%}
+{%- for p in all_p -%},{ 
+    "title": {{ p.title | jsonify }},
+    "url": {{ p.url | relative_url | jsonify }},
+    "date": "{{ p.date | date_to_xmlschema }}",
+    "content": {{ p.content | strip_html | jsonify }},
+    "type": "project",
+    "tags": {{ p.tags | jsonify }}
+}{% endfor %}
 ]
