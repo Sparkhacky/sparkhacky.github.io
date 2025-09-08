@@ -1,13 +1,12 @@
 ---
 layout: default
 ---
-<section class="grid grid-2">
-  <div class="card">
-    <h1>Hola, soy {{ site.author.name }}</h1>
-    <p>Comparto writeups, proyectos y un <strong>briefing diario</strong> de ciberinteligencia.</p>
-    <p class="post-meta">{{ site.description }}</p>
+<section class="hero">
+  <div class="panel">
+    <h1>{{ site.author.name }}</h1>
+    <p class="muted">Ciberinteligencia · Pentesting · DFIR. Aquí documento **writeups**, **proyectos** y un **blog** con briefings diarios.</p>
   </div>
-  <div class="card">
+  <div class="panel">
     {% include search.html %}
   </div>
 </section>
@@ -21,8 +20,8 @@ layout: default
 
 <h2>Writeups recientes</h2>
 <div class="grid grid-3">
-  {% assign items = site.writeups | sort: 'date' | reverse | slice: 0, 6 %}
-  {% for w in items %}
+  {% assign ws = site.writeups | sort: 'date' | reverse | slice: 0, 6 %}
+  {% for w in ws %}
     {% include card.html item=w %}
   {% endfor %}
 </div>

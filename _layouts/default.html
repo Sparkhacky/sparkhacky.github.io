@@ -1,12 +1,10 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    {% include head.html %}
-  </head>
+  <head>{% include head.html %}</head>
   <body>
     <div class="container">
       {% include header.html %}
-      <main>{{ content }}</main>
+      <main aria-live="polite">{{ content }}</main>
       {% include footer.html %}
     </div>
   </body>

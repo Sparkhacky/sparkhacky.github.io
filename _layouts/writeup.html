@@ -3,11 +3,9 @@ layout: default
 ---
 <article class="card">
   <h1>{{ page.title }}</h1>
-  <p class="post-meta">Plataforma: {{ page.platform }} · Dificultad: {{ page.difficulty }} · {{ page.date | date: "%d %b %Y" }}</p>
+  <p class="meta">Plataforma: {{ page.platform }} · Dificultad: {{ page.difficulty }} · {{ page.date | date: "%d %b %Y" }}</p>
   {{ content }}
-  <p>
-    {% for tag in page.tags %}
-      <span class="tag">#{{ tag }}</span>
-    {% endfor %}
-  </p>
+  <div style="margin-top:10px">
+    {% for tag in page.tags %}<span class="tag">#{{ tag }}</span>{% endfor %}
+  </div>
 </article>

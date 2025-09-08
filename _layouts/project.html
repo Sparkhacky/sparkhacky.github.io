@@ -3,9 +3,9 @@ layout: default
 ---
 <article class="card">
   <h1>{{ page.title }}</h1>
-  <p class="post-meta">{{ page.date | date: "%d %b %Y" }} · {{ page.stack | join: ", " }}</p>
+  <p class="meta">{{ page.date | date: "%d %b %Y" }}{% if page.stack %} · {{ page.stack | join: ", " }}{% endif %}</p>
   {{ content }}
   {% if page.repo %}
-    <p><a href="{{ page.repo }}" target="_blank">Repositorio ↗</a></p>
+  <p><a class="btn" href="{{ page.repo }}" target="_blank" rel="noopener">Repositorio ↗</a></p>
   {% endif %}
 </article>
