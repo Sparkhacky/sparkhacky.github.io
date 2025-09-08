@@ -1,30 +1,30 @@
 ---
-title: "Writeup — TryHackMe: Blue"
-platform: "TryHackMe"
-difficulty: "Fácil"
-tags: [smb, eternalblue, privesc]
-date: 2025-09-08
+title: "TA505: patrón reciente en ES (Jul 2025)"
+date: 2025-07-21
+tags: [ta505, att&ck, loader]
+tlp: amber
+confidence: media
+mitre: [TA0001, T1059, T1105]
+lessons:
+  - Priorizar controles de descarga y ejecución Living-off-the-Land
+  - Detección basada en TTPs por sobre IoCs efímeros
+excerpt: "Resumen táctico y mapeo ATT&CK con evidencias públicas."
 ---
-## 📌 Información General
-- Plataforma: TryHackMe
-- Máquina: Blue
-- Dificultad: Fácil
 
-## 🧭 Objetivo
-Obtener user.txt y root.txt explotando MS17-010.
+## Resumen ejecutivo
+Actividad compatible con TA505 con señuelos financieros y loaders de primera etapa.
 
-## 🔎 Enumeración
-- `nmap -sC -sV -p- <IP>` → SMB abierto en 445…
+## Evidencias
+- VT/any.run: campañas similares con infra temporal.
+- IoCs (hashes, dominios) rotando cada 48–72h.
 
-## ⚔️ Explotación
-- Uso de `nmap --script smb-vuln-ms17-010` → vulnerable…
-- PoC empleada y por qué funciona…
+## TTPs ATT&CK
+- **T1059** (Command and Scripting Interpreter)  
+- **T1105** (Exfiltration Over C2 Channel)
 
-## 📈 Escalada
-- Validación de privilegios, post-explotación…
+## Detección/Mitigación
+- Reglas Sigma/YARA sobre artefactos habituales.
+- Controles de *egress* por categorías y reputación.
 
-## 🏁 Flags
-- `THM{...}`
-
-## 🔍 Lecciones aprendidas
-- …
+## Lecciones
+- {{ page.lessons | join: "; " }}
