@@ -1,7 +1,11 @@
-<nav aria-label="Principal">
-  {% assign here = page.url | relative_url %}
-  {% for item in site.nav %}
-    {% assign url = item.link | relative_url %}
-    <a href="{{ url }}" class="{% if here == url %}active{% endif %}">{{ item.name }}</a>
-  {% endfor %}
+<nav class="site-nav" aria-label="Principal">
+  <a class="logo" href="{{ '/' | relative_url }}">ME</a>
+  <button class="menu-btn" aria-expanded="false" aria-controls="menu" onclick="toggleMenu(this)">Menú</button>
+  <ul id="menu">
+    {% for item in site.nav %}
+      {% assign is_active = page.url == item.link or page.url == item.link | append: 'index.html' %}
+      <li><a class="{% if is_active %}active{% endif %}" href="{{ item.link | relative_url }}">{{ item.title }}</a></li>
+    {% endfor %}
+    <li class="search">{% include search.html %}</li>
+  </ul>
 </nav>
