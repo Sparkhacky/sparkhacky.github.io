@@ -1,11 +1,18 @@
-<div class="card">
-  <h3><a href="{{ include.item.url | relative_url }}">{{ include.item.title }}</a></h3>
-  <p class="meta">
-    {% if include.item.date %}{{ include.item.date | date: "%d %b %Y" }}{% endif %}
-    {% if include.item.categories %} · {{ include.item.categories | join: " / " }}{% endif %}
-  </p>
-  {% if include.item.excerpt %}{{ include.item.excerpt | strip_html | truncate: 140 }}{% endif %}
-  <div>
-    {% for tag in include.item.tags limit:4 %}<span class="tag">#{{ tag }}</span>{% endfor %}
-  </div>
-</div>
+{% assign item = include.item %}
+{% assign kind = include.kind | default: item.collection | default: 'post' %}
+<article class="card">
+  <a href="{{ item.url | relative_url }}">
+    <h3>{{ item.title }}</h3>
+    {% if item.excerpt %}
+      <p>{{ item.excerpt | strip_html | truncate: 160 }}</p>
+    {% endif %}
+    {% if item.tlp or item.confidence or item.mitre %}
+      {% include cti-meta.html tlp=item.tlp confidence=item.confidence mitre=item.mitre %}
+    {% endif %}
+    <footer>
+      {% if item.date %}<time datetime="{{ item.date | date_to_xmlschema }}">{{ item.date | date: "%-d %b %Y" }}</time>{% endif %}
+      {% if kind %} · {{ kind | capitalize }}{% endif %}
+      {% if item.tags and item.tags.size > 0 %} · {{ item.tags | join: ", " }}{% endif %}
+    </footer>
+  </a>
+</article>
