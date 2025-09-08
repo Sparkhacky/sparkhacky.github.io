@@ -1,3 +1,10 @@
-<footer>
-  © {{ "now" | date: "%Y" }} {{ site.author.name }}
+<footer class="site-footer">
+  <p>© {{ "now" | date: "%Y" }} Sparkhacky. {{ site.title }}</p>
+  <p>
+    <a href="https://x.com/tu_usuario" rel="me">X</a> ·
+    <a href="https://www.linkedin.com/in/tu-perfil" rel="me">LinkedIn</a> ·
+    <a href="mailto:tuemail@example.com">Email</a>
+  </p>
 </footer>
+<script src="{{ '/assets/js/menu.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/js/search.js' | relative_url }}" defer></script>
