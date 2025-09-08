@@ -1,8 +1,13 @@
-<header class="site">
-  <div class="brand">
-    <a href="{{ '/' | relative_url }}"><strong>{{ site.title }}</strong></a>
-    <span class="muted">/ {{ site.description }}</span>
+<a class="skip-link" href="#main">Saltar al contenido</a>
+<header class="hero">
+  <img class="hero-bg" src="{{ '/assets/images/hero-cti.webp' | relative_url }}" alt="Mapa/Grafo CTI difuminado" loading="eager">
+  <div class="hero-overlay"></div>
+  <div class="hero-copy">
+    <h1>Mhaykol Eng — Cyber Threat Intelligence</h1>
+    <p>Threat-led analysis para equipos SOC y dirección: briefings diarios, writeups reproducibles y recomendaciones accionables.</p>
+    <nav class="hero-cta">
+      <a class="btn" href="{{ '/blog/' | relative_url }}">Ver briefings</a>
+      <a class="btn ghost" href="{{ '/writeups/' | relative_url }}">Leer writeups</a>
+    </nav>
   </div>
-  {% include nav.html %}
 </header>
-<hr class="hr" style="height:1px;border:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);margin:10px 0;">
