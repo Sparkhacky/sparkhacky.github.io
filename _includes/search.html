@@ -1,0 +1,38 @@
+<div class="searchbar">
+  <input id="q" class="search" placeholder="Buscar en el blog (título o contenido)..." autocomplete="off" />
+  <button class="btn" type="button" id="clear">Limpiar</button>
+</div>
+<div id="results" class="grid grid-3" style="margin-top:12px"></div>
+
+<script src="https://unpkg.com/lunr/lunr.min.js"></script>
+<script>
+(async function(){
+  const res = await fetch('{{ "/search.json" | relative_url }}');
+  const posts = await res.json();
+  const idx = lunr(function(){
+    this.ref('url'); this.field('title'); this.field('content');
+    posts.forEach(p => this.add(p));
+  });
+  const q = document.getElementById('q');
+  const out = document.getElementById('results');
+  const clear = document.getElementById('clear');
+  function render(items){
+    out.innerHTML = '';
+    items.slice(0,12).forEach(({ref})=>{
+      const p = posts.find(x=>x.url===ref);
+      const el = document.createElement('div'); el.className='card';
+      el.innerHTML = `<h3><a href="${p.url}">${p.title}</a></h3>
+        <p class="meta">${p.date||''}</p>
+        <p>${(p.content||'').slice(0,160)}...</p>`;
+      out.appendChild(el);
+    });
+  }
+  q.addEventListener('input', e=>{
+    const s = e.target.value.trim();
+    if(!s){ out.innerHTML=''; return; }
+    const hits = idx.search(s);
+    render(hits);
+  });
+  clear.addEventListener('click', ()=>{ q.value=''; out.innerHTML=''; q.focus(); });
+})();
+</script>

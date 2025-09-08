@@ -1,0 +1,9 @@
+<nav aria-label="Principal">
+  <ul>
+    {% assign here = page.url | relative_url %}
+    {% for item in site.nav %}
+      {% assign url = item.link | relative_url %}
+      <li><a href="{{ url }}" class="{% if url == here %}active{% endif %}">{{ item.name }}</a></li>
+    {% endfor %}
+  </ul>
+</nav>
