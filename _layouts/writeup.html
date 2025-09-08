@@ -1,11 +1,22 @@
 ---
 layout: default
 ---
-<article class="card">
-  <h1>{{ page.title }}</h1>
-  <p class="meta">Plataforma: {{ page.platform }} · Dificultad: {{ page.difficulty }} · {{ page.date | date: "%d %b %Y" }}</p>
-  {{ content }}
-  <div style="margin-top:10px">
-    {% for tag in page.tags %}<span class="tag">#{{ tag }}</span>{% endfor %}
-  </div>
+
+<article class="container prose">
+  <header class="post-header">
+    <h1>{{ page.title }}</h1>
+    {% if page.date %}<p class="meta"><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%-d %B %Y" }}</time></p>{% endif %}
+    {% include cti-meta.html tlp=page.tlp confidence=page.confidence mitre=page.mitre %}
+  </header>
+
+  <section>
+    {{ content }}
+  </section>
+
+  <section class="block">
+    <h2>Lecciones aprendidas</h2>
+    <ul>
+      {% for l in page.lessons %}<li>{{ l }}</li>{% endfor %}
+    </ul>
+  </section>
 </article>
