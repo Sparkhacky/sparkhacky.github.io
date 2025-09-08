@@ -1,17 +1,34 @@
-title: "SparkHacky INTEL"
-description: "Portfolio — Writeups, Proyectos y Blog de Ciberinteligencia"
-url: "https://sparkhacky.github.io"   # sin barra final
-baseurl: ""                           # user/ORG page => vacío
+title: "Mhaykol Eng — Cyber Threat Intelligence"
+description: "Briefings CTI, writeups reproducibles y proyectos aplicados. Threat-led analysis para SOC y dirección."
+url: "https://sparkhacky.github.io"
+baseurl: "" # no subpath para user/organization site
 
-theme: minima
-plugins:
-  - jekyll-feed
-  - jekyll-sitemap
-  - jekyll-seo-tag
-
-# Salidas y rutas limpias
+# Build
+markdown: kramdown
+highlighter: rouge
 permalink: /:categories/:title/
+timezone: Europe/Madrid
 
+# Plugins permitidos por GitHub Pages
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-feed
+
+# Navegación (usa page.url == item.link)
+nav:
+  - title: Inicio
+    link: /
+  - title: Briefings
+    link: /blog/
+  - title: Writeups
+    link: /writeups/
+  - title: Proyectos
+    link: /projects/
+  - title: About
+    link: /about/
+
+# Colecciones
 collections:
   writeups:
     output: true
@@ -20,22 +37,32 @@ collections:
     output: true
     permalink: /projects/:title/
 
+# Defaults (layouts/metadata)
 defaults:
-  - scope: { path: "", type: "posts" }
-    values: { layout: post }
-  - scope: { path: "", type: "writeups" }
-    values: { layout: writeup }
-  - scope: { path: "", type: "projects" }
-    values: { layout: project }
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: post
+      category: blog
+  - scope:
+      path: ""
+      type: "writeups"
+    values:
+      layout: writeup
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: project
 
-# Navegación
-nav:
-  - { name: "Inicio",   link: "/" }
-  - { name: "Blog",     link: "/blog/" }
-  - { name: "Writeups", link: "/writeups/" }
-  - { name: "Proyectos",link: "/projects/" }
-  - { name: "About",    link: "/about/" }
+# SEO
+social:
+  links:
+    - https://www.linkedin.com/in/tu-perfil
+    - https://x.com/tu_usuario
+    - https://youtube.com/@tu_canal
 
-author:
-  name: "Mhaykol Eng"
-  email: "tu-email@proton.me"
+# Feed
+feed:
+  path: feed.xml
