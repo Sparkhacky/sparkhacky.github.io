@@ -1,0 +1,28 @@
+---
+layout: default
+---
+<section class="grid grid-2">
+  <div class="card">
+    <h1>Hola, soy {{ site.author.name }}</h1>
+    <p>Comparto writeups, proyectos y un <strong>briefing diario</strong> de ciberinteligencia.</p>
+    <p class="post-meta">{{ site.description }}</p>
+  </div>
+  <div class="card">
+    {% include search.html %}
+  </div>
+</section>
+
+<h2>Últimos posts</h2>
+<div class="grid grid-3">
+  {% for post in site.posts limit:6 %}
+    {% include card.html item=post %}
+  {% endfor %}
+</div>
+
+<h2>Writeups recientes</h2>
+<div class="grid grid-3">
+  {% assign items = site.writeups | sort: 'date' | reverse | slice: 0, 6 %}
+  {% for w in items %}
+    {% include card.html item=w %}
+  {% endfor %}
+</div>

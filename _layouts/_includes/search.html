@@ -1,0 +1,28 @@
+<input id="search" class="search-input" placeholder="Buscar en el sitio..." />
+<div id="results" class="grid"></div>
+<script src="https://unpkg.com/lunr/lunr.min.js"></script>
+<script>
+(async function(){
+  const res = await fetch('{{ "/search.json" | relative_url }}');
+  const data = await res.json();
+  const idx = lunr(function () {
+    this.ref('url'); this.field('title'); this.field('content');
+    data.forEach(d => this.add(d));
+  });
+  const input = document.getElementById('search');
+  const results = document.getElementById('results');
+  input.addEventListener('input', e=>{
+    const q = e.target.value.trim();
+    results.innerHTML = '';
+    if(!q) return;
+    idx.search(q).slice(0,10).forEach(({ref})=>{
+      const item = data.find(d=>d.url===ref);
+      const div = document.createElement('div'); div.className='card';
+      div.innerHTML = `<h3><a href="${item.url}">${item.title}</a></h3>
+        <p class="post-meta">${item.date || ''}</p>
+        <p>${(item.content||'').slice(0,120)}...</p>`;
+      results.appendChild(div);
+    });
+  });
+})();
+</script>

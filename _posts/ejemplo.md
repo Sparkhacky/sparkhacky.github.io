@@ -1,0 +1,9 @@
+---
+title: "OSINT Daily Briefing — 08 Sep 2025"
+categories: [osint, intel]
+tags: [geoint, socmint, darkweb]
+---
+Resumen diario con hallazgos OSINT verificados, fuentes y notas de fiabilidad.  
+- Tendencia A…
+- Fuente B…
+- IOC/indicadores si aplica…

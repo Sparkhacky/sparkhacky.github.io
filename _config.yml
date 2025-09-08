@@ -1,0 +1,58 @@
+title: "SparkHacky — Portfolio & Ciberinteligencia"
+description: "Writeups, proyectos y un blog diario sobre ciberinteligencia."
+url: "https://<TU-USUARIO>.github.io"
+baseurl: ""
+theme: minima
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+collections:
+  writeups:
+    output: true
+    permalink: /writeups/:title/
+  projects:
+    output: true
+    permalink: /projects/:title/
+
+paginate: 8
+paginate_path: "/blog/page:num/"
+permalink: /:categories/:title/
+markdown: kramdown
+
+defaults:
+  - scope: { path: "", type: "posts" }
+    values: { layout: post }
+  - scope: { path: "", type: "writeups" }
+    values: { layout: writeup }
+  - scope: { path: "", type: "projects" }
+    values: { layout: project }
+
+# Menú
+nav:
+  - name: Inicio
+    link: /
+  - name: Blog
+    link: /blog/
+  - name: Writeups
+    link: /writeups/
+  - name: Proyectos
+    link: /projects/
+  - name: Archivo
+    link: /archive/
+  - name: Tags
+    link: /tags/
+  - name: Sobre mí
+    link: /about/
+  - name: Contacto
+    link: /contact/
+
+# SEO
+author:
+  name: "Mhaykol Eng"
+  email: "<tu-email>@proton.me"
+social:
+  twitter: "<tu-user>"
+  linkedin: "<tu-user>"

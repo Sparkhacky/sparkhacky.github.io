@@ -1,0 +1,8 @@
+<div class="card">
+  <h3><a href="{{ include.item.url | relative_url }}">{{ include.item.title }}</a></h3>
+  <p class="post-meta">
+    {{ include.item.date | date: "%d %b %Y" }}
+    {% if include.item.categories %} · {{ include.item.categories | join: " / " }}{% endif %}
+  </p>
+  {% if include.item.excerpt %}{{ include.item.excerpt | strip_html | truncate: 120 }}{% endif %}
+</div>
