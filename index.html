@@ -1,0 +1,33 @@
+---
+layout: home
+title: "Inicio"
+---
+
+<section class="home-section">
+  <h2>Últimos briefings</h2>
+  <div class="grid">
+    {% for post in site.posts limit:6 %}
+      {% include card.html item=post kind="post" %}
+    {% endfor %}
+  </div>
+</section>
+
+<section class="home-section">
+  <h2>Writeups recientes</h2>
+  <div class="grid">
+    {% assign items = site.writeups | sort: 'date' | reverse %}
+    {% for w in items limit:3 %}
+      {% include card.html item=w kind="writeup" %}
+    {% endfor %}
+  </div>
+</section>
+
+<section class="home-section">
+  <h2>Proyectos</h2>
+  <div class="grid">
+    {% assign projs = site.projects | sort: 'date' | reverse %}
+    {% for p in projs limit:3 %}
+      {% include card.html item=p kind="project" %}
+    {% endfor %}
+  </div>
+</section>
