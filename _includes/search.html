@@ -1,5 +1,5 @@
 <div class="searchbar">
-  <input id="q" class="search" placeholder="Buscar en el blog (título o contenido)..." autocomplete="off" />
+  <input id="q" class="search" placeholder="Buscar en el blog..." autocomplete="off" />
   <button class="btn" type="button" id="clear">Limpiar</button>
 </div>
 <div id="results" class="grid grid-3" style="margin-top:12px"></div>
@@ -30,8 +30,7 @@
   q.addEventListener('input', e=>{
     const s = e.target.value.trim();
     if(!s){ out.innerHTML=''; return; }
-    const hits = idx.search(s);
-    render(hits);
+    render(idx.search(s));
   });
   clear.addEventListener('click', ()=>{ q.value=''; out.innerHTML=''; q.focus(); });
 })();
