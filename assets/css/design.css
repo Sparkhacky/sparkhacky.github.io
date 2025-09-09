@@ -86,25 +86,6 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
   position: relative; /* necesario para que funcione el ::before */
 }
 
-.logo-mark::before {
-  content: "";
-  position: absolute;
-  top: 20%;      /* ajusta la posición vertical de la bolita */
-  left: 20%;     /* ajusta la posición horizontal */
-  width: 60%;    /* tamaño de la bolita respecto al cuadrado */
-  height: 60%;
-  border-radius: 50%;
-  /* Color degradado de la bolita (empieza más claro en el centro) */
-  background: radial-gradient(
-    circle at 50% 50%,
-    #E5D0FF 0%,
-    #D0B4FF 70%,
-    #B78AFF 100%
-  );
-  /* Sombra para darle sensación de volumen */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
 .logo-text{
   font-weight:800; letter-spacing:.2px;
   background:linear-gradient(90deg,var(--accent),var(--accent-2));
