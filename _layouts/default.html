@@ -3,7 +3,7 @@
 <head>
   {% include head.html %}
 </head>
-<body>
+<body class="page-{{ page.layout | default: 'default' }}{% if page.collection %} collection-{{ page.collection }}{% endif %}" data-path="{{ page.url }}">
   {% include nav.html %}
   <main id="main" class="main">
     {{ content }}
