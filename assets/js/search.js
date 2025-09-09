@@ -1,52 +1,103 @@
-window.siteIndex = null;
-window.siteDocs = [];
+/* Lunr search for SparkHacky */
+(function () {
+  const $input = document.querySelector('#global-search');
+  const $results = document.querySelector('#search-results');
 
-async function ensureLunr() {
-  if (typeof lunr !== 'undefined') return;
-  await new Promise(resolve => {
-    const s = document.createElement('script');
-    s.src = 'https://cdn.jsdelivr.net/npm/lunr/lunr.min.js';
-    s.onload = resolve; s.onerror = resolve;
-    document.head.appendChild(s);
+  if (!$input || !$results) return;
+
+  // util: quitar acentos
+  const fold = (s) => s.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
+
+  // debounce para no indexar cada tecla
+  const debounce = (fn, ms=120) => {
+    let t; return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms) };
+  };
+
+  let idx;     // índice lunr
+  let store = []; // documentos planos
+
+  const load = async () => {
+    try {
+      const res = await fetch((window.__BASEURL__ || '') + '/search.json', { cache: 'no-store' });
+      const data = await res.json();
+
+      store = []
+        .concat(data.posts || [])
+        .concat(data.writeups || [])
+        .map(doc => ({
+          id: doc.id,
+          title: doc.title || '',
+          url: doc.url,
+          type: doc.type,
+          date: doc.date || '',
+          tags: (doc.tags || []).join(' '),
+          categories: (doc.categories || []).join(' '),
+          excerpt: doc.excerpt || '',
+          content: doc.content || ''
+        }));
+
+      // crear índice
+      idx = lunr(function () {
+        this.ref('id');
+        this.field('title', { boost: 10 });
+        this.field('tags',  { boost: 6 });
+        this.field('categories', { boost: 4 });
+        this.field('excerpt', { boost: 2 });
+        this.field('content');
+
+        store.forEach(d => {
+          this.add({
+            id: d.id,
+            title: fold(d.title),
+            tags: fold(d.tags),
+            categories: fold(d.categories),
+            excerpt: fold(d.excerpt),
+            content: fold(d.content)
+          });
+        }, this);
+      });
+
+    } catch (e) {
+      console.error('Search init error:', e);
+    }
+  };
+
+  const template = (hit) => {
+    const doc = store.find(d => d.id === hit.ref);
+    if (!doc) return '';
+    const badge = doc.type === 'writeup' ? 'Writeup' : 'Briefing';
+    return `
+      <a class="search-item" href="${doc.url}">
+        <strong>${doc.title}</strong>
+        <span class="meta">· ${badge}${doc.date ? ' · ' + doc.date : ''}</span>
+      </a>
+    `;
+  };
+
+  const render = (html) => {
+    $results.innerHTML = html;
+    $results.style.display = html ? 'block' : 'none';
+  };
+
+  const onSearch = debounce((q) => {
+    const query = fold(q.trim());
+    if (!query) return render('');
+    // búsqueda flexible: palabras sueltas y comodines
+    let r = idx.search(query + '* ' + query.split(/\s+/).map(s => '+'+s+'*').join(' '));
+    // limitar resultados
+    r = r.slice(0, 10);
+    render(r.map(template).join(''));
+  }, 90);
+
+  // eventos
+  $input.addEventListener('input', (e) => onSearch(e.target.value));
+  document.addEventListener('click', (e) => {
+    if (!$results.contains(e.target) && e.target !== $input) render('');
   });
-  if (typeof lunr === 'undefined') {
-    await new Promise(resolve => {
-      const s2 = document.createElement('script');
-      s2.src = 'https://unpkg.com/lunr/lunr.min.js';
-      s2.onload = resolve; s2.onerror = resolve;
-      document.head.appendChild(s2);
-    });
-  }
-}
-
-async function loadIndex() {
-  if (window.siteIndex) return;
-  const res = await fetch('/search.json', { cache: 'no-store' }).catch(() => null);
-  if (!res || !res.ok) { console.warn('No se pudo cargar /search.json'); window.siteDocs = []; return; }
-  window.siteDocs = await res.json();
-  await ensureLunr();
-  if (typeof lunr === 'undefined') return;
-  window.siteIndex = lunr(function(){
-    this.ref('url'); this.field('title'); this.field('content'); this.field('tags'); this.field('type');
-    window.siteDocs.forEach(d => this.add(d));
+  $input.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') { render(''); $input.blur(); }
   });
-}
 
-window.siteSearch = async function(q){
-  const box = document.getElementById('search-results');
-  if(!box) return;
-  if(!q){ box.style.display='none'; box.innerHTML=''; return; }
-  await loadIndex();
-  if(!window.siteIndex){ box.style.display='block'; box.innerHTML='<div class="search-item">El índice no está disponible</div>'; return; }
-  const results = window.siteIndex.search(q);
-  box.style.display='block';
-  box.innerHTML = results.slice(0,10).map(r=>{
-    const doc = window.siteDocs.find(d=>d.url===r.ref) || {};
-    return `<a class="search-item" href="${doc.url||'#'}">
-      <strong>${doc.title||'(Sin título)'}</strong><br>
-      <small>${doc.type||''} · ${(doc.date||'').slice(0,10)}</small>
-    </a>`;
-  }).join('') || '<div class="search-item">Sin resultados</div>';
-};
-
-loadIndex();
+  // iniciar
+  load();
+})();
