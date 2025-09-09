@@ -436,8 +436,7 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
               linear-gradient(135deg,var(--accent),var(--accent-2));
   box-shadow: 0 0 0 2px rgba(255,255,255,.18) inset, 0 0 8px rgba(142,92,255,.45);
 }
-.pill-cta .i{ width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center; }
-.pill-cta:hover{ filter: brightness(1.06); box-shadow: 0 8px 24px rgba(106,61,200,.32); }
+
 
 /* Asegura aire extra en móviles muy pequeños */
 @media (max-width: 420px){
@@ -876,13 +875,7 @@ a{ text-decoration:none }
 
 /* CTA bajo cada bloque (estilo píldora) */
 .section-cta{ display:flex; justify-content:center; margin-top: 1.4rem; }
-.pill-cta{
-  display:inline-flex; align-items:center; gap:.5rem;
-  padding:.85rem 1.15rem; border-radius: 999px;
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
-  color:#fff; text-decoration:none; box-shadow: var(--shadow-md);
-}
-.pill-cta .i{ width: 18px; height: 18px; }
+
 
 /* Enlaces dentro de cards o nav: sin subrayado al hover del bloque */
 .card a:hover, .pill-cta:hover, .btn:hover { text-decoration: none; }
