@@ -1,7 +1,7 @@
 <header class="hero">
   <picture>
     <!-- Puedes cambiar site.hero_image en _config.yml si quieres otra ruta -->
-    <source srcset="{{ site.hero_image | default: '/assets/images/og-cti.webp' | relative_url }}" type="image/webp">
+    <source srcset="{{ site.hero_image | default: '/assets/images/og-cti.jpg' | relative_url }}" type="image/jpg">
     <img class="hero-bg"
          src="{{ site.hero_image_fallback | default: '/assets/images/og-cti.jpg' | relative_url }}"
          alt="Mapa y grafo CTI"
@@ -13,7 +13,7 @@
 
   <div class="hero-copy">
     <p class="pill">Cyber Threat Intelligence</p>
-    <h1>Mhaykol Eng — <span>inteligencia accionable</span></h1>
+    <h1>Sparkhacky — <span>Cyber Intelligence</span></h1>
     <p>Threat-led analysis para equipos SOC y dirección: briefings diarios y writeups reproducibles.</p>
     <nav class="hero-cta">
       <a class="btn btn-xl" href="{{ '/blog/' | relative_url }}">
