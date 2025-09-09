@@ -1,16 +1,52 @@
-{% assign item = include.item %}
-{% assign kind = include.kind | default: item.collection | default: 'post' %}
+{%- assign it = include.item -%}
+{%- assign kind = include.kind | default: "post" -%}
 <article class="card">
-  <a href="{{ item.url | relative_url }}">
-    <h3>{{ item.title }}</h3>
-    {% if item.excerpt %}<p>{{ item.excerpt | strip_html | truncate: 160 }}</p>{% endif %}
-    {% if item.tlp or item.confidence or item.mitre %}
-      {% include cti-meta.html tlp=item.tlp confidence=item.confidence mitre=item.mitre %}
-    {% endif %}
-    <footer>
-      {% if item.date %}<time datetime="{{ item.date | date_to_xmlschema }}">{{ item.date | date: "%-d %b %Y" }}</time>{% endif %}
-      {% if kind %} · {{ kind | capitalize }}{% endif %}
-      {% if item.tags and item.tags.size > 0 %} · {{ item.tags | join: ", " }}{% endif %}
-    </footer>
-  </a>
+  <header class="card-head">
+    <span class="label-pill">
+      {%- if kind == "writeup" -%}
+        <svg class="i" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 5h16M4 12h10M4 19h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Writeup
+      {%- elsif kind == "project" -%}
+        <svg class="i" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 7h16v10H4z" stroke="currentColor" stroke-width="2"/><path d="M8 7V5h8v2" stroke="currentColor" stroke-width="2"/>
+        </svg>
+        Project
+      {%- else -%}
+        <svg class="i" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" stroke="currentColor"/>
+        </svg>
+        {{ kind | capitalize }}
+      {%- endif -%}
+    </span>
+    <time class="chip" datetime="{{ it.date | date_to_xmlschema }}">{{ it.date | date: "%Y-%m-%d" }}</time>
+  </header>
+
+  <div class="card-stack">
+    <a class="card-title" href="{{ it.url | relative_url }}">{{ it.title }}</a>
+    {%- if it.excerpt -%}
+      <p class="card-excerpt">{{ it.excerpt | strip_html | truncate: 220 }}</p>
+    {%- endif -%}
+
+    <!-- Si hay campos CTI opcionales, muéstralos igual que en briefing -->
+    <div class="meta-row">
+      {%- if it.tlp -%}<span class="badge {{ it.tlp | downcase | prepend: 'tlp-' }}">TLP:{{ it.tlp | upcase }}</span>{%- endif -%}
+      {%- if it.severity -%}<span class="badge {{ it.severity | downcase | prepend: 'sev-' }}">{{ it.severity | upcase }}</span>{%- endif -%}
+    </div>
+    <div class="meta-row">
+      {%- if it.sector -%}<span class="chip">{{ it.sector }}</span>{%- endif -%}
+      {%- if it.region -%}<span class="chip">{{ it.region }}</span>{%- endif -%}
+    </div>
+    {%- if it.techniques and it.techniques.size > 0 -%}
+    <div class="meta-row">
+      {%- for t in it.techniques -%}<span class="chip mitre">{{ t }}</span>{%- endfor -%}
+    </div>
+    {%- endif -%}
+    {%- if it.tags and it.tags.size > 0 -%}
+    <div class="meta-row">
+      {%- for tag in it.tags -%}<span class="chip">#{{ tag }}</span>{%- endfor -%}
+    </div>
+    {%- endif -%}
+  </div>
 </article>
