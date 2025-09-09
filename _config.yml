@@ -3,6 +3,11 @@ description: "Briefings CTI, writeups reproducibles y proyectos aplicados. Threa
 url: "https://sparkhacky.github.io"
 baseurl: ""
 
+# _config.yml
+hero_image: /assets/images/hero-cti.webp
+hero_image_fallback: /assets/images/hero-cti.jpg
+
+
 markdown: kramdown
 highlighter: rouge
 permalink: /:categories/:title/
