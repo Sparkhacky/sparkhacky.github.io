@@ -3,9 +3,12 @@ layout: home
 title: "Inicio"
 ---
 
+<!-- ===================== Briefings ===================== -->
 <section class="container home-section" id="briefings">
-  <h2>Daily Intelligence Briefings</h2>
-  <p class="lede">Análisis diarios de amenazas emergentes, tendencias y recomendaciones para equipos SOC.</p>
+  <header class="section-head">
+    <h2>Daily Intelligence Briefings</h2>
+    <p class="lede">Análisis diarios de amenazas emergentes, tendencias y recomendaciones para equipos SOC.</p>
+  </header>
 
   <div class="cards-xl">
     {% assign latest = site.posts | slice: 0, 6 %}
@@ -13,19 +16,44 @@ title: "Inicio"
       {% include card-briefing.html post=post %}
     {% endfor %}
   </div>
-</section>
 
-
-<section class="home-section">
-  <h2>Writeups técnicos</h2>
-  <div class="grid">
-    {% assign items = site.writeups | sort: 'date' | reverse %}
-    {% for w in items limit:3 %}
-      {% include card.html item=w kind="writeup" %}
-    {% endfor %}
+  <!-- CTA centrada a /blog/ -->
+  <div class="cta-center">
+    <a class="btn btn-xl ghost arrow" href="{{ '/blog/' | relative_url }}">
+      Ver todos los briefings
+      <svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M5 12h14M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2"/>
+      </svg>
+    </a>
   </div>
 </section>
 
+<!-- ===================== Writeups ===================== -->
+<section class="container-wide home-section" id="writeups">
+  <header class="section-head">
+    <h2>Writeups técnicos</h2>
+    <p class="lede">Documentación detallada de análisis, explotación y mapeo MITRE ATT&amp;CK con enfoque didáctico.</p>
+  </header>
+
+  <div class="grid grid--2">
+    {% assign items = site.writeups | sort: 'date' | reverse %}
+    {% for w in items limit:6 %}
+      {% include card.html item=w kind="writeup" %}
+    {% endfor %}
+  </div>
+
+  <!-- CTA centrada a /writeups/ -->
+  <div class="cta-center">
+    <a class="btn btn-xl arrow" href="{{ '/writeups/' | relative_url }}">
+      Explorar writeups
+      <svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M5 12h14M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2"/>
+      </svg>
+    </a>
+  </div>
+</section>
+
+<!-- ===================== Proyectos & Herramientas ===================== -->
 <section class="container-wide home-section" id="projects">
   <header class="section-head">
     <h2>Proyectos &amp; Herramientas</h2>
@@ -39,10 +67,9 @@ title: "Inicio"
     {% endfor %}
   </div>
 
+  <!-- CTA centrada a GitHub -->
   <div class="cta-center">
-    <a class="btn btn-xl ghost arrow"
-       href="https://github.com/sparkhacky?tab=repositories"
-       target="_blank" rel="noopener">
+    <a class="btn btn-xl ghost arrow" href="https://github.com/sparkhacky?tab=repositories" target="_blank" rel="noopener">
       Ver repositorios
       <svg class="i" viewBox="0 0 24 24" aria-hidden="true">
         <path d="M5 12h14M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2"/>
@@ -50,4 +77,3 @@ title: "Inicio"
     </a>
   </div>
 </section>
-
