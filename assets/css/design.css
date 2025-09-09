@@ -290,57 +290,86 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
 @media (max-width:700px){ .briefing-card, .home-section .card{ width:100% } }
 
 /* ========================================================================== */
-/* 11) ABOUT (hero, tiles, redes) — sin bandas y más compacto en About        */
+/* 11) ABOUT (hero, tiles, redes) — compacto y sin bandas                     */
 /* ========================================================================== */
-.about-page .home-section{ 
-  margin:1.1rem auto 1.4rem; 
-  background: linear-gradient(180deg, #0B1622 0%, #0E1D31 100%);
+
+/* Fondo continuo y sin rayas de banda para el About */
+.about-page, .page-about { background: linear-gradient(180deg, #0B1622 0%, #0E1D31 100%); }
+.about-page .home-section::before, .page-about .home-section::before { content:none; }
+
+/* Cabecera del About */
+.about-hero{ 
+  text-align:center; 
+  padding: clamp(1.5rem, 4vw, 2.5rem) 1rem 2.2rem;
+}
+.about-hero h1{ margin:.4rem 0 1rem; }
+
+.about-hero .lede{
+  color: var(--ink); 
+  font-size: clamp(1.06rem, 1.6vw, 1.25rem);
+  max-width: 70ch; margin: 0 auto .4rem;
+}
+.about-hero .lede-2{
+  color: var(--ink-2);
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  max-width: 78ch; margin: .4rem auto 1.6rem;
 }
 
-.about-page .home-section:last-of-type {
-  padding-bottom: 2.5rem !important;
+/* Avatar circular con el mismo look de tu marca */
+.about-hero .avatar{
+  width: 120px; height: 120px; margin: 0 auto 1.2rem; border-radius: 999px;
+  background: radial-gradient(120% 120% at 40% 35%, #B498FF 0%, #6A3DC8 45%, #3A2C75 100%);
+  box-shadow: inset 0 0 0 6px rgba(255,255,255,.08), 0 12px 36px rgba(0,0,0,.28);
 }
 
-
-.about-hero{ text-align:center }
-.about-hero h1{ margin-bottom:.6rem }
-.about-hero .lede{ color:var(--ink); font-size:clamp(1.06rem,1.2vw,1.2rem) }
-.about-hero .lede-2{ color:var(--ink-2); max-width:70ch; margin:.4rem auto 0 }
-
-/* Avatar con anillo violeta */
-.avatar{
-  width:128px; height:128px; border-radius:50%;
-  margin:.4rem auto 1rem; position:relative;
-  background:radial-gradient(45% 45% at 35% 35%,#BFA6FF 0 50%,transparent 55%),
-             linear-gradient(135deg,rgba(106,61,200,.9),rgba(142,92,255,.7));
-  box-shadow:inset 0 0 0 6px rgba(11,22,34,.8), 0 12px 38px rgba(106,61,200,.35);
+/* Grid de tiles */
+.feature-tiles{
+  display:grid; gap: 1rem;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  max-width: var(--maxw); margin: 1.2rem auto 1.2rem; padding: 0 1rem;
 }
-.avatar-ring{ position:absolute; inset:10px; border-radius:50%; box-shadow:inset 0 0 0 6px rgba(255,255,255,.2) }
+@media (max-width: 1100px){ .feature-tiles{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width: 560px){ .feature-tiles{ grid-template-columns: 1fr; } }
 
-/* Tiles de competencias */
-.pill-grid{ display:grid; gap:1rem; grid-template-columns:repeat(4,minmax(160px,1fr)) }
-@media (max-width:1000px){ .pill-grid{ grid-template-columns:repeat(2,1fr) } }
-@media (max-width:560px){ .pill-grid{ grid-template-columns:1fr } }
-
-.pill-card{
+/* Tile: tarjeta sobria con borde y hover */
+.tile{
   display:flex; flex-direction:column; align-items:center; justify-content:center;
-  padding:1.05rem .95rem; border-radius:16px; /* compacto */
-  background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.02));
-  border:1px solid rgba(255,255,255,.10); box-shadow:var(--shadow-sm);
-  color:var(--ink); transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+  min-height: 128px; border-radius: 18px; padding: 1.2rem;
+  border:1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.04);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
+  transition: transform .15s ease, border-color .15s ease, background .15s ease, box-shadow .15s ease;
 }
-.pill-card h3{ margin:.2rem 0 .2rem; font-size:1.35rem }
-.pill-card .sub{ color:var(--ink-2) }
-.pill-card:hover{ transform:translateY(-3px); box-shadow:var(--shadow-lg); border-color:rgba(142,92,255,.35) }
-.pill-card:hover h3{
-  background:linear-gradient(90deg,var(--accent-2),var(--accent));
-  -webkit-background-clip:text; background-clip:text; color:transparent; text-decoration:none;
+.tile:hover{
+  transform: translateY(-2px);
+  border-color: rgba(142,92,255,.38);
+  background: rgba(255,255,255,.06);
+  box-shadow: 0 8px 28px rgba(106,61,200,.25);
 }
+.tile-title{
+  font-weight: 900; letter-spacing:.2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  font-size: clamp(1.2rem, 2.4vw, 1.8rem);
+}
+.tile-sub{ color: var(--ink-2); margin-top: .2rem; }
 
-/* Redes sociales */
-.social-row{ display:flex; flex-wrap:wrap; gap:.7rem; justify-content:center; margin-top:.6rem }
-.social-row .btn{ border-radius:999px; padding:.62rem .9rem }
-.social-row .btn .i{ width:18px; height:18px; margin-right:.35rem }
+/* Fila de redes en formato “pills” */
+.social-row{
+  display:flex; gap:.6rem; flex-wrap:wrap; justify-content:center;
+  margin: 1.2rem auto 0; padding: 0 1rem;
+}
+.pill-cta{
+  display:inline-flex; align-items:center; gap:.45rem;
+  padding:.5rem .9rem; border-radius:999px;
+  border:1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.04);
+}
+.pill-cta .i{ width:18px; height:18px; display:inline-flex; align-items:center; justify-content:center; }
+.pill-cta:hover{ border-color: rgba(142,92,255,.35); background: rgba(255,255,255,.06); }
+
+/* Última sección del About con aire antes del footer */
+.about-hero:last-of-type{ padding-bottom: clamp(1.2rem, 3vw, 2rem); }
 
 /* ========================================================================== */
 /* 12) FOOTER (estilo Lovable)                                                */
