@@ -440,3 +440,125 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
 
 /* Oculta el primer H1 “heredado” solo en /writeups/ */
 body[data-path="/writeups/"] .main > h1:first-child{ display:none !important; }
+
+/* === Cards “intel” estilo Lovable, respetando tu paleta === */
+
+/* Contenedor y grid */
+.cards-xl { 
+  display:grid;
+  grid-template-columns: repeat(2, minmax(420px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+@media (max-width:1100px){ .cards-xl{ grid-template-columns:1fr; } }
+
+/* Base de cualquier card */
+.card, .briefing-card {
+  position: relative;
+  background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 20px;
+  padding: 1.25rem 1.25rem 1rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform .20s ease, box-shadow .20s ease, border-color .20s ease, background .20s ease;
+}
+.card:hover, .briefing-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(142,92,255,.35); /* glow violeta coherente */
+}
+
+/* Cabecera label + fecha */
+.card-head {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: .75rem;
+  color: var(--ink-2);
+  margin-bottom: .6rem;
+}
+.label-pill {
+  display:inline-flex; align-items:center; gap:.45rem;
+  font-weight:600; font-size:.9rem;
+  padding:.28rem .65rem;
+  border-radius:999px;
+  background: rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.18);
+}
+.label-pill .i { width:18px; height:18px; opacity:.9; }
+
+/* Título y excerpt */
+.card-title {
+  font-size: clamp(1.25rem, 1.3vw + 1rem, 1.65rem);
+  font-weight: 800;
+  margin: .3rem 0 .55rem;
+  line-height: 1.25;
+  color: var(--ink);
+  text-decoration: none;
+}
+.card-excerpt { color: var(--ink-2); margin: 0 0 1rem; max-width: 68ch; }
+
+/* Hover: título a duotono violeta */
+.briefing-card:hover .card-title,
+.card:hover .card-title {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+
+/* Bloques de “badges” y “chips” */
+.meta-row { display:flex; flex-wrap:wrap; gap:.55rem; margin:.35rem 0 0; }
+
+.badge {
+  display:inline-flex; align-items:center; gap:.4rem;
+  font-size:.86rem; font-weight:600;
+  padding:.28rem .7rem; border-radius:999px;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.06);
+  backdrop-filter: saturate(120%) blur(2px);
+}
+.badge .i { width:16px; height:16px; }
+
+/* Variantes TLP / severidad (mantiene tu esquema) */
+.tlp-white{ border-color:#E5E7EB33;background:#E5E7EB22;color:#E5E7EB }
+.tlp-green{ border-color:#34D39933;background:#34D39922 }
+.tlp-amber{ border-color:#F59E0B33;background:#F59E0B22 }
+.tlp-red{ border-color:#EF444433;background:#EF444422 }
+
+.sev-low{    border-color:#10B98144;background:#10B98122;color:#A7F3D0 }
+.sev-medium{ border-color:#F59E0B44;background:#F59E0B22;color:#FDE68A }
+.sev-high{   border-color:#EF444444;background:#EF444422;color:#FCA5A5 }
+.sev-critical{border-color:#DC262644;background:#DC262622;color:#FCA5A5 }
+
+/* Chips (sector, región, técnicas, tags) */
+.chip {
+  display:inline-block;
+  font-size:.84rem; font-weight:600;
+  padding:.30rem .65rem; border-radius:999px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.06);
+}
+.chip.mitre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing:.2px; }
+
+/* Enlaces dentro de cards sin subrayado feo */
+.briefing-card a, .card a { text-decoration: none; color: inherit; }
+.briefing-card a:hover, .card a:hover { text-decoration: none; }
+
+/* Botón CTA inferior centrado (link a “todos los briefings/writeups/gh”) */
+.section-cta {
+  display:flex; justify-content:center; margin-top:1.4rem;
+}
+.btn-cta {
+  display:inline-flex; align-items:center; gap:.6rem;
+  padding:.9rem 1.3rem; border-radius:999px;
+  background:linear-gradient(90deg, var(--accent), var(--accent-2));
+  color:#fff; font-weight:700;
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow: var(--shadow-md);
+}
+.btn-cta .i { width:18px; height:18px; }
+.btn-cta:hover { transform: translateY(-1px); box-shadow: var(--shadow-lg); }
+
+/* Espaciado sutil entre bloques internos de la card */
+.card-stack > * + * { margin-top:.45rem; }
+
