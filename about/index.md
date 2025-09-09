@@ -12,7 +12,7 @@ permalink: /about/
   <p class="lede">
     Me dedico a entender cómo atacan los malos y qué hacer para pararlos.
   </p>
-  <p class="lede lede-2">Finalizando <strong>Bootcamp de Ciberseguridad</strong> en The Bridge</p>
+  <p class="lede-2">Finalizando <strong>Bootcamp de Ciberseguridad</strong> en The Bridge</p>
 
   <div class="feature-tiles">
     <div class="tile">
