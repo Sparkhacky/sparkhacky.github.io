@@ -290,22 +290,33 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
 @media (max-width:700px){ .briefing-card, .home-section .card{ width:100% } }
 
 /* ========================================================================== */
-/* 11) ABOUT (hero, tiles, redes) — compacto y sin bandas                     */
+/* ABOUT (versión final)                                                      */
 /* ========================================================================== */
 
-/* Fondo continuo y sin rayas de banda para el About */
-.about-page, .page-about { background: linear-gradient(180deg, #0B1622 0%, #0E1D31 100%); }
-.about-page .home-section::before, .page-about .home-section::before { content:none; }
-
-/* Cabecera del About */
-.about-hero{ 
-  text-align:center; 
-  padding: clamp(1.5rem, 4vw, 2.5rem) 1rem 2.2rem;
+/* Fondo continuo y sin bandas para About */
+.about-page, .page-about { 
+  background: linear-gradient(180deg, #0B1622 0%, #0E1D31 100%);
 }
-.about-hero h1{ margin:.4rem 0 1rem; }
+.about-page .home-section::before,
+.page-about  .home-section::before { content: none; }
 
+/* Cabecera About */
+.about-hero{
+  text-align: center;
+  padding: clamp(1.6rem, 4vw, 2.6rem) 1rem 0; /* sin extra abajo; lo damos a social-row */
+}
+.about-hero h1{ margin: .4rem 0 1rem; }
+
+/* Avatar redondo */
+.about-hero .avatar{
+  width: 120px; height: 120px; margin: 0 auto 1.2rem; border-radius: 999px;
+  background: radial-gradient(120% 120% at 40% 35%, #B498FF 0%, #6A3DC8 45%, #3A2C75 100%);
+  box-shadow: inset 0 0 0 6px rgba(255,255,255,.08), 0 12px 36px rgba(0,0,0,.28);
+}
+
+/* Textos intro */
 .about-hero .lede{
-  color: var(--ink); 
+  color: var(--ink);
   font-size: clamp(1.06rem, 1.6vw, 1.25rem);
   max-width: 70ch; margin: 0 auto .4rem;
 }
@@ -315,58 +326,65 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
   max-width: 78ch; margin: .4rem auto 1.6rem;
 }
 
-/* Avatar circular con el mismo look de tu marca */
-.about-hero .avatar{
-  width: 120px; height: 120px; margin: 0 auto 1.2rem; border-radius: 999px;
-  background: radial-gradient(120% 120% at 40% 35%, #B498FF 0%, #6A3DC8 45%, #3A2C75 100%);
-  box-shadow: inset 0 0 0 6px rgba(255,255,255,.08), 0 12px 36px rgba(0,0,0,.28);
-}
-
 /* Grid de tiles */
 .feature-tiles{
-  display:grid; gap: 1rem;
+  display: grid; gap: 1rem;
   grid-template-columns: repeat(4, minmax(0,1fr));
-  max-width: var(--maxw); margin: 1.2rem auto 1.2rem; padding: 0 1rem;
+  max-width: var(--maxw); margin: 1.2rem auto; padding: 0 1rem;
 }
-@media (max-width: 1100px){ .feature-tiles{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
-@media (max-width: 560px){ .feature-tiles{ grid-template-columns: 1fr; } }
+@media (max-width: 1100px){
+  .feature-tiles{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+@media (max-width: 560px){
+  .feature-tiles{ grid-template-columns: 1fr; }
+}
 
-/* Tile: tarjeta sobria con borde y hover */
+/* Tarjeta */
 .tile{
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  min-height: 128px; border-radius: 18px; padding: 1.2rem;
-  border:1px solid rgba(255,255,255,.16);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 130px;
+  border-radius: 18px; padding: 1.2rem;
+  border: 1px solid rgba(255,255,255,.14);
   background: rgba(255,255,255,.04);
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.03);
   transition: transform .15s ease, border-color .15s ease, background .15s ease, box-shadow .15s ease;
 }
 .tile:hover{
   transform: translateY(-2px);
   border-color: rgba(142,92,255,.38);
   background: rgba(255,255,255,.06);
-  box-shadow: 0 8px 28px rgba(106,61,200,.25);
+  box-shadow: 0 8px 28px rgba(106,61,200,.22);
 }
 .tile-title{
-  font-weight: 900; letter-spacing:.2px;
+  font-weight: 900; letter-spacing: .2px;
   background: linear-gradient(90deg, var(--accent), var(--accent-2));
-  -webkit-background-clip:text; background-clip:text; color:transparent;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
   font-size: clamp(1.2rem, 2.4vw, 1.8rem);
 }
 .tile-sub{ color: var(--ink-2); margin-top: .2rem; }
 
-/* Fila de redes en formato “pills” */
+/* Fila de redes (pills) */
 .social-row{
-  display:flex; gap:.6rem; flex-wrap:wrap; justify-content:center;
-  margin: 1.2rem auto 0; padding: 0 1rem;
+  display: flex; gap: .7rem; flex-wrap: wrap; justify-content: center;
+  margin: 1.4rem auto 2.4rem;        /* <- este bottom crea aire antes del footer */
+  padding: 0 1rem;
 }
 .pill-cta{
-  display:inline-flex; align-items:center; gap:.45rem;
-  padding:.5rem .9rem; border-radius:999px;
-  border:1px solid rgba(255,255,255,.16);
-  background: rgba(255,255,255,.04);
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .6rem 1rem; border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.16);
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  color: #fff; text-decoration: none;
+  box-shadow: 0 6px 18px rgba(106,61,200,.25);
 }
-.pill-cta .i{ width:18px; height:18px; display:inline-flex; align-items:center; justify-content:center; }
-.pill-cta:hover{ border-color: rgba(142,92,255,.35); background: rgba(255,255,255,.06); }
+.pill-cta .i{ width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center; }
+.pill-cta:hover{ filter: brightness(1.06); box-shadow: 0 8px 24px rgba(106,61,200,.32); }
+
+/* Asegura aire extra en móviles muy pequeños */
+@media (max-width: 420px){
+  .social-row{ margin-bottom: 2.8rem; }
+}
+
 
 /* Última sección del About con aire antes del footer */
 .about-hero:last-of-type{ padding-bottom: clamp(1.2rem, 3vw, 2rem); }
