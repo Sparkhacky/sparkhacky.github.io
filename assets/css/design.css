@@ -61,6 +61,7 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
   inset:0 calc(50% - 50vw); /* cubre de borde a borde del viewport */
   z-index:-1;
   background:var(--band-odd);
+  margin: 0;
 }
 .home-section:nth-of-type(even)::before{ background:var(--band-even) }
 
