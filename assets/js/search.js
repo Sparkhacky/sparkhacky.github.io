@@ -1,149 +1,121 @@
-(function () {
-  const INPUT_ID = "site-search";
-  const RESULTS_ID = "search-results";
-  const INDEX_URL = "/search.json";             // tu site es user.github.io -> raíz
-  const MAX_RESULTS = 10;
+(() => {
+  const INPUT = document.getElementById('q') || document.getElementById('site-search');
+  const RESULTS = document.getElementById('search-results');
+  if (!INPUT || !RESULTS) return;
 
-  const $ = (sel) => document.querySelector(sel);
-  const input = document.getElementById(INPUT_ID);
-  const results = document.getElementById(RESULTS_ID);
-  if (!input || !results) return;
+  let data = [];
+  let activeIdx = -1;
 
-  let index = [];
-  let cursor = -1; // para navegación con teclas
-
-  // Utilidades
-  const normalize = (s) => (s || "")
-    .toString()
+  const normalize = s => (s || '')
     .toLowerCase()
-    .normalize("NFD")
-    .replace(/\p{Diacritic}/gu, "");
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
-  const debounce = (fn, ms = 150) => {
-    let t;
-    return (...args) => {
-      clearTimeout(t);
-      t = setTimeout(() => fn.apply(null, args), ms);
-    };
-  };
-
-  const highlight = (text, q) => {
-    if (!q) return text;
-    try {
-      const esc = q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      return text.replace(new RegExp(`(${esc})`, "ig"), "<mark>$1</mark>");
-    } catch {
-      return text;
-    }
-  };
-
-  // Carga índice (posts + writeups)
-  fetch(INDEX_URL, { cache: "no-store" })
-    .then((r) => r.json())
-    .then((json) => {
-      index = []
-        .concat(json.posts || [])
-        .concat(json.writeups || [])
-        .map((item) => ({
-          ...item,
-          _norm: {
-            title: normalize(item.title),
-            excerpt: normalize(item.excerpt),
-            tags: normalize((item.tags || []).join(" ")),
-            categories: normalize((item.categories || []).join(" ")),
-            content: normalize(item.content).slice(0, 2000) // recorta para rendimiento
-          }
-        }));
+  // Carga del índice
+  fetch('/search.json')
+    .then(r => r.json())
+    .then(json => {
+      data = [...(json.posts || []), ...(json.writeups || [])].map(item => ({
+        ...item,
+        _hay: normalize([
+          item.title,
+          (item.tags || []).join(' '),
+          (item.categories || []).join(' '),
+          item.excerpt
+        ].join(' '))
+      }));
     })
-    .catch((e) => {
-      console.error("[search] No se pudo cargar /search.json", e);
+    .catch(() => { /* falla silenciosa para no romper la UI */ });
+
+  function hide() {
+    RESULTS.hidden = true;
+    RESULTS.innerHTML = '';
+    activeIdx = -1;
+  }
+
+  function setActive(i) {
+    const items = RESULTS.querySelectorAll('.search-item');
+    items.forEach(el => el.classList.remove('is-active'));
+    if (i >= 0 && i < items.length) {
+      items[i].classList.add('is-active');
+      activeIdx = i;
+      items[i].scrollIntoView({ block: 'nearest' });
+    }
+  }
+
+  function render(list, tokens) {
+    RESULTS.innerHTML = '';
+    if (!list.length) { hide(); return; }
+
+    const frag = document.createDocumentFragment();
+    list.forEach((it, idx) => {
+      const a = document.createElement('a');
+      a.className = 'search-item';
+      a.href = it.url;
+      a.setAttribute('role', 'option');
+      a.dataset.index = idx;
+
+      // Resaltado de tokens en el título
+      let htmlTitle = it.title;
+      tokens.forEach(tok => {
+        if (!tok) return;
+        const re = new RegExp(`(${tok.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'ig');
+        htmlTitle = htmlTitle.replace(re, '<mark>$1</mark>');
+      });
+
+      a.innerHTML = `
+        <span class="badge ${it.type}">${it.type === 'writeup' ? 'Writeup' : 'Briefing'}</span>
+        <span class="title">${htmlTitle}</span>
+        ${it.date ? `<span class="meta">${it.date}</span>` : ''}
+      `;
+
+      a.addEventListener('mousemove', () => setActive(idx));
+      a.addEventListener('click', () => hide());
+      frag.appendChild(a);
     });
 
-  // Render resultados
-  const render = (items, q) => {
-    if (!items.length) {
-      results.innerHTML = "";
-      results.hidden = true;
-      cursor = -1;
-      return;
-    }
-    results.innerHTML = items
-      .slice(0, MAX_RESULTS)
-      .map((it, i) => {
-        const type = it.type === "writeup" ? "Writeup" : "Briefing";
-        return `
-          <a class="search-item" href="${it.url}" data-idx="${i}" role="option">
-            <div class="search-item-title">${highlight(it.title, q)}</div>
-            <div class="search-item-meta">${type} • ${it.date || ""}</div>
-          </a>
-        `;
-      })
-      .join("");
-    results.hidden = false;
-    cursor = -1;
-  };
+    RESULTS.appendChild(frag);
+    RESULTS.hidden = false;
+    activeIdx = -1;
+  }
 
-  // Búsqueda
-  const doSearch = debounce(() => {
-    const q = normalize(input.value.trim());
-    if (!q || index.length === 0) {
-      results.innerHTML = "";
-      results.hidden = true;
-      cursor = -1;
-      return;
-    }
-    const tokens = q.split(/\s+/).filter(Boolean);
-    const filtered = index.filter((it) =>
-      tokens.every((t) =>
-        it._norm.title.includes(t) ||
-        it._norm.tags.includes(t) ||
-        it._norm.categories.includes(t) ||
-        it._norm.excerpt.includes(t)
-        // si quieres incluir contenido completo, añade:
-        // || it._norm.content.includes(t)
-      )
-    );
-    render(filtered, input.value.trim());
-  }, 120);
+  INPUT.addEventListener('input', (e) => {
+    const q = normalize(e.target.value.trim());
+    if (q.length < 2) { hide(); return; }
+    const toks = q.split(/\s+/).filter(Boolean);
 
-  // Interacción
-  input.addEventListener("input", doSearch);
-  input.addEventListener("focus", () => {
-    if (results.innerHTML) results.hidden = false;
+    const list = data
+      .filter(it => toks.every(tok => it._hay.includes(tok)))
+      .slice(0, 10);
+
+    render(list, toks);
   });
 
-  input.addEventListener("keydown", (e) => {
-    const items = Array.from(results.querySelectorAll(".search-item"));
-    if (!items.length || results.hidden) return;
+  INPUT.addEventListener('keydown', (e) => {
+    if (RESULTS.hidden) return;
+    const items = RESULTS.querySelectorAll('.search-item');
+    if (!items.length) return;
 
     switch (e.key) {
-      case "ArrowDown":
+      case 'ArrowDown':
         e.preventDefault();
-        cursor = (cursor + 1) % items.length;
-        items.forEach((el, i) => el.classList.toggle("is-active", i === cursor));
-        items[cursor].scrollIntoView({ block: "nearest" });
+        setActive((activeIdx + 1) % items.length);
         break;
-      case "ArrowUp":
+      case 'ArrowUp':
         e.preventDefault();
-        cursor = (cursor - 1 + items.length) % items.length;
-        items.forEach((el, i) => el.classList.toggle("is-active", i === cursor));
-        items[cursor].scrollIntoView({ block: "nearest" });
+        setActive((activeIdx - 1 + items.length) % items.length);
         break;
-      case "Enter":
-        e.preventDefault();
-        if (cursor >= 0) items[cursor].click();
-        else items[0]?.click();
+      case 'Enter':
+        if (activeIdx >= 0) {
+          e.preventDefault();
+          items[activeIdx].click();
+        }
         break;
-      case "Escape":
-        results.hidden = true;
-        cursor = -1;
+      case 'Escape':
+        hide();
         break;
     }
   });
 
-  document.addEventListener("click", (e) => {
-    if (!results.contains(e.target) && e.target !== input) {
-      results.hidden = true;
-    }
-  });
+  // Ocultar al perder foco (permite click en opciones)
+  INPUT.addEventListener('blur', () => setTimeout(hide, 150));
 })();
