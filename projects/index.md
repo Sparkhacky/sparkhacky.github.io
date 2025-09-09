@@ -5,7 +5,7 @@ permalink: /projects/
 ---
 <section class="container page-section">
   <header class="section-head">
-    <h1>Projectos</h1>
+    <h1>Proyectos</h1>
     <p class="lede">Automatización de CTI, mapeo ATT&CK y visualizaciones para mejorar capacidades defensivas.</p>
   </header>
 
