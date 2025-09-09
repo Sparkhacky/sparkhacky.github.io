@@ -26,12 +26,28 @@ title: "Inicio"
   </div>
 </section>
 
-<section class="home-section">
-  <h2>Proyectos & Herramientas</h2>
-  <div class="grid">
+<section class="container-wide home-section" id="projects">
+  <header class="section-head">
+    <h2>Proyectos &amp; Herramientas</h2>
+    <p class="lede">Desarrollo de herramientas para automatización de CTI, análisis de amenazas y mejora de capacidades defensivas.</p>
+  </header>
+
+  <div class="grid grid--2">
     {% assign projs = site.projects | sort: 'date' | reverse %}
-    {% for p in projs limit:3 %}
+    {% for p in projs limit:6 %}
       {% include card.html item=p kind="project" %}
     {% endfor %}
   </div>
+
+  <div class="cta-center">
+    <a class="btn btn-xl ghost arrow"
+       href="https://github.com/sparkhacky?tab=repositories"
+       target="_blank" rel="noopener">
+      Ver repositorios
+      <svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M5 12h14M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2"/>
+      </svg>
+    </a>
+  </div>
 </section>
+
