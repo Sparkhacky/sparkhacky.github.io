@@ -380,3 +380,17 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
 }
 .footer-bottom{ text-align:center; color:var(--ink-2); font-size:.95rem }
 .site-footer ul{ list-style:none; padding-left:0; margin:0 }
+
+/* === Flush sections (sin bandas / fondo continuo) ====================== */
+/* Elimina por completo el pseudo-fondo de cada sección */
+.home-section::before{ content:none !important; }
+
+/* Compacta un poco el espaciado entre secciones */
+.home-section{ margin: .8rem auto 1.2rem !important; }
+.home-section:first-of-type{ margin-top: 0 !important; }
+.home-section:last-of-type{ margin-bottom: 2rem !important; }
+
+/* Si alguna plantilla envuelve con .container interne, asegúrate de no
+   introducir fondos propios */
+.container, .container-wide{ background:transparent !important; }
+
