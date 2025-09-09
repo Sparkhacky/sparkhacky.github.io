@@ -1,14 +1,11 @@
 ---
-title: "Intel Weave — Plantilla CTI"
-date: 2025-08-30
-stack: [Jekyll, Lunr, SVG, A11y]
-repo: https://github.com/sparkhacky/sparkhacky.github.io
-tags: [portfolio, cti, jekyll]
-excerpt: "Plantilla de portfolio CTI con hero, tarjetas, badges TLP/Confianza/ATT&CK y buscador lunr."
+title: "CyberSec Framework Tools"
+date: 2025-08-15
+stack: [Js, CSS, Html]
+repo: https://github.com/Sparkhacky/cybersec-framework-tools
+tags: [framework, tools]
+excerpt: "CyberSec Framework Tools es una web que organiza y centraliza las principales herramientas de ciberseguridad, clasificadas por categorías."
 ---
 
-**Problema.** Portfolios CTI dispersos y poco estructurados.
+**Catálogo.** Más de 200 herramientas clasificadas en bloque como: Active directory, Ingeniería social, Hacking web, etc.
 
-**Enfoque.** Diseño sobrio, detalles CTI discretos, plantillas listas para publicar.
-
-**Resultado.** Base sólida para briefings diarios, writeups y proyectos.
