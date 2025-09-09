@@ -189,7 +189,7 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
 .pill{
   position: absolute;
   top: 5px;          /* separa del borde superior */
-  left: 15px;         /* pegada a la izquierda */
+  left: 35px;         /* pegada a la izquierda */
   margin: 0 !important;
   transform: none !important;
 }
