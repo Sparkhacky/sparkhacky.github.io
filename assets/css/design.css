@@ -421,13 +421,20 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
   margin: 1.4rem auto 2.4rem;        /* <- este bottom crea aire antes del footer */
   padding: 0 1rem;
 }
+/* Etiqueta “Cyber Threat Intelligence” */
 .pill-cta{
-  display: inline-flex; align-items: center; gap: .5rem;
-  padding: .6rem 1rem; border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.16);
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
-  color: #fff; text-decoration: none;
-  box-shadow: 0 6px 18px rgba(106,61,200,.25);
+  display:inline-flex; align-items:center; gap:.6rem;
+  padding:.45rem .9rem; border-radius:999px;
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(255,255,255,.06);
+  color:#EDEBFF; font-weight:700; letter-spacing:.2px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
+}
+.pill-cta .dot{
+  width:.55rem; height:.55rem; border-radius:50%;
+  background: radial-gradient(circle at 30% 30%, #fff 0 25%, transparent 26%),
+              linear-gradient(135deg,var(--accent),var(--accent-2));
+  box-shadow: 0 0 0 2px rgba(255,255,255,.18) inset, 0 0 8px rgba(142,92,255,.45);
 }
 .pill-cta .i{ width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center; }
 .pill-cta:hover{ filter: brightness(1.06); box-shadow: 0 8px 24px rgba(106,61,200,.32); }
