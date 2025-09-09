@@ -562,3 +562,112 @@ body[data-path="/writeups/"] .main > h1:first-child{ display:none !important; }
 /* Espaciado sutil entre bloques internos de la card */
 .card-stack > * + * { margin-top:.45rem; }
 
+/* ====== Tokens (usa tu paleta existente) ====== */
+:root{
+  --bg:#0B1622;
+  --surface:#0E1D31;
+  --ink:#C9D3DD;
+  --ink-2:#8AA0B2;
+  --accent:#6A3DC8;   /* violeta principal */
+  --accent-2:#8E5CFF; /* violeta claro */
+  --radius:16px;
+  --shadow-sm:0 4px 18px rgba(0,0,0,.18);
+  --shadow-md:0 8px 28px rgba(0,0,0,.22);
+  --shadow-lg:0 12px 44px rgba(0,0,0,.28);
+  --maxw:1100px;
+}
+
+/* ====== HERO ====== */
+.hero{
+  position:relative; min-height:64vh; display:grid; place-items:center;
+  overflow:hidden; width:100%;
+}
+.hero-bg{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; filter:grayscale(15%) contrast(108%);
+  opacity:.9;
+}
+.hero-overlay{
+  position:absolute; inset:0;
+  background:
+    radial-gradient(120% 120% at 50% 35%, transparent 0, rgba(11,22,34,.65) 60%, rgba(11,22,34,.95) 100%),
+    linear-gradient(180deg, rgba(106,61,200,.22), rgba(142,92,255,.10));
+  mix-blend-mode: screen;
+  pointer-events:none;
+}
+.hero-ink{
+  position:absolute; inset:0; opacity:.12; pointer-events:none;
+  background-image: repeating-linear-gradient(0deg, rgba(255,255,255,.06) 0 1px, transparent 1px 3px);
+}
+.hero-copy{
+  position:relative; max-width:1100px; margin-inline:auto; padding:clamp(1rem,2.8vw,2rem);
+  text-align:left;
+}
+.hero-copy h1{
+  color:#EAF1FF; font-weight:900;
+  font-size:clamp(2.4rem, 6vw, 4.4rem);
+  line-height:1.1; margin:.3rem 0 .7rem;
+  letter-spacing:.2px;
+}
+.hero-copy .accent{
+  background:linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.hero-copy .lede{
+  color:#D5E0ED; font-size:clamp(1.05rem, 1.8vw, 1.25rem);
+  max-width:70ch; margin:0 0 1.2rem;
+}
+
+/* pill “Cyber Threat Intelligence” */
+.pill-cta{
+  display:inline-flex; align-items:center; gap:.6rem;
+  padding:.45rem .9rem; border-radius:999px;
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(255,255,255,.06);
+  color:#EDEBFF; font-weight:700; letter-spacing:.2px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
+}
+.pill-cta .dot{
+  width:.55rem; height:.55rem; border-radius:50%;
+  background: radial-gradient(circle at 30% 30%, #fff 0 25%, transparent 26%),
+              linear-gradient(135deg, var(--accent), var(--accent-2));
+  box-shadow: 0 0 0 2px rgba(255,255,255,.18) inset, 0 0 8px rgba(142,92,255,.45);
+}
+
+/* CTA buttons del hero */
+.hero-cta{ display:flex; gap:.8rem; flex-wrap:wrap; align-items:center; margin:.6rem 0 0 }
+.btn{ display:inline-flex; align-items:center; gap:.5rem; border-radius:999px; cursor:pointer; text-decoration:none }
+.btn .i{ width:18px; height:18px }
+.btn-xl{
+  font-size:1.05rem; padding:.9rem 1.2rem;
+  color:#fff; background:linear-gradient(90deg, var(--accent), var(--accent-2));
+  box-shadow: var(--shadow-md); border:1px solid transparent;
+  transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+.btn-xl:hover{ transform:translateY(-1px); box-shadow: var(--shadow-lg) }
+.btn.ghost{
+  background:transparent; color:var(--ink);
+  border:1px solid rgba(255,255,255,.22);
+}
+.btn.ghost:hover{
+  border-color: rgba(142,92,255,.45);
+  box-shadow: 0 0 0 3px rgba(142,92,255,.18);
+}
+
+/* Métricas opcionales del hero */
+.hero-stats{
+  margin:1.3rem 0 0; padding:0; list-style:none;
+  display:flex; gap:1.6rem; flex-wrap:wrap;
+}
+.hero-stats .kpi{
+  display:block; font-weight:800; font-size:1.4rem; color:#fff;
+}
+.hero-stats li span:last-child{ color:var(--ink-2); font-size:1rem }
+
+/* ====== Sección/CTA generales ====== */
+.section-cta{ display:flex; justify-content:center; margin:1.4rem 0 0 }
+.section-cta .btn{ padding:.85rem 1.1rem }
+
+/* ====== A11y y pequeños ajustes ====== */
+:focus-visible{ outline:3px solid #B3A0FF; outline-offset:2px }
+a{ text-decoration:none }
