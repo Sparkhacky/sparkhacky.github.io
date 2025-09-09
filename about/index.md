@@ -10,7 +10,7 @@ permalink: /about/
   <h1>About</h1>
 
   <p class="lede">
-    Analista junior especializado en <strong>Cyber Threat Intelligence</strong> con pasión por transformar datos en inteligencia accionable.
+    Me dedico a entender cómo atacan los malos y qué hacer para pararlos. Finalizando <strong>Bootcamp de Ciberseguridad</strong> en The Bridge
   </p>
   <p class="lede-2">
     Mi enfoque combina técnicas de <strong>OSINT</strong>, análisis de <strong>malware</strong> y <strong>threat hunting</strong>, mapeo <strong>MITRE ATT&amp;CK</strong>, correlación de IOCs y <strong>automatización</strong> de procesos para CTI.
