@@ -774,3 +774,10 @@ a{ text-decoration:none }
 /* Enlaces dentro de cards o nav: sin subrayado al hover del bloque */
 .card a:hover, .pill-cta:hover, .btn:hover { text-decoration: none; }
 
+.card .title{
+  transition: color .18s ease, text-shadow .18s ease;
+}
+.card:hover .title{
+  color: #C9B2FF; /* violeta claro de tu paleta */
+  text-shadow: 0 0 24px rgba(142,92,255,.35);
+}
