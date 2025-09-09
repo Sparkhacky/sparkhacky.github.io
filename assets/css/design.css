@@ -216,3 +216,67 @@ a:hover{text-decoration:underline}
 /* ===== A11y ===== */
 :focus-visible{outline:3px solid #B3A0FF;outline-offset:2px}
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+/* ===== Briefings grid centrada (2 columnas) ===== */
+.cards-xl{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(420px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;               /* centra el grid */
+  justify-items: stretch;
+  align-items: stretch;
+}
+@media (max-width: 1100px){ .cards-xl{ grid-template-columns:1fr; } }
+
+/* ===== Tarjeta de briefing ===== */
+.briefing-card{
+  background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 20px;
+  padding: 1.25rem 1.25rem 1rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform .20s ease, box-shadow .20s ease, border-color .20s ease, background .20s ease;
+  position: relative;
+}
+.briefing-card:hover{
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(142,92,255,.35); /* glow violeta */
+}
+.briefing-card header{
+  display:flex; align-items:center; justify-content:space-between;
+  color: var(--ink-2); margin-bottom:.6rem;
+}
+.briefing-card .label{
+  display:inline-flex; align-items:center; gap:.35rem;
+  background: rgba(255,255,255,.10);
+  border: 1px solid rgba(255,255,255,.18);
+  padding: .22rem .6rem; border-radius: 999px; font-size: .85rem;
+}
+.briefing-card .date{ font-size:.9rem; opacity:.9 }
+.briefing-card .title{
+  display:block; font-size:1.45rem; font-weight:800; margin:.3rem 0 .5rem;
+  text-decoration:none; color:inherit;
+}
+.briefing-card .excerpt{ color:var(--ink-2); margin:0 0 .8rem; max-width:60ch; }
+.briefing-card .tags{ margin-top:.4rem }
+
+/* chips para tags */
+.tag{
+  display:inline-block; background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:999px; padding:.25rem .55rem; font-size:.82rem;
+  margin:.35rem .35rem 0 0;
+}
+
+/* badges CTI (aprovecha lo que ya tenías y añade severidad y código MITRE) */
+.badge.code{ font-family: ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing:.2px; }
+.sev-low{    border-color:#10B98144; background:#10B98122; color:#A7F3D0; }
+.sev-medium{ border-color:#F59E0B44; background:#F59E0B22; color:#FDE68A; }
+.sev-high{   border-color:#EF444444; background:#EF444422; color:#FCA5A5; }
+.sev-critical{border-color:#DC262644; background:#DC262622; color:#FCA5A5; }
+
+/* pequeña separación global bajo secciones largas */
+.home-section{ margin: 2.5rem 0 3rem; }
+
