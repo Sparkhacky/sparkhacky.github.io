@@ -438,3 +438,5 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
 /* Pequeño ajuste de separación superior de la primera card */
 .page-writeups .cards-xl .card:first-child { margin-top: .2rem; }
 
+/* Oculta el primer H1 “heredado” solo en /writeups/ */
+body[data-path="/writeups/"] .main > h1:first-child{ display:none !important; }
