@@ -1,0 +1,37 @@
+{% assign item = include.item | default: include.post | default: page %}
+
+<div class="cti-meta">
+  {% if item.tlp %}
+    <span class="badge tlp-{{ item.tlp | downcase }}">TLP:{{ item.tlp | upcase }}</span>
+  {% endif %}
+
+  {% if item.confidence %}
+    {% assign conf = item.confidence | downcase %}
+    <span class="badge conf-{{ conf }}">Confianza: {{ item.confidence | capitalize }}</span>
+  {% endif %}
+
+  {% if item.severity %}
+    {% assign sev = item.severity | downcase %}
+    <span class="badge sev-{{ sev }}">{{ sev | upcase }}</span>
+  {% endif %}
+
+  {% if item.sectors %}
+    {% for s in item.sectors limit:2 %}
+      <span class="chip">{{ s }}</span>
+    {% endfor %}
+  {% endif %}
+
+  {% if item.regions %}
+    {% for r in item.regions limit:2 %}
+      <span class="chip">📍 {{ r }}</span>
+    {% endfor %}
+  {% endif %}
+
+  {% if item.mitre %}
+    <div class="mitre" style="margin-top:.4rem;">
+      {% for t in item.mitre limit:3 %}
+        <span class="badge code">{{ t }}</span>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
