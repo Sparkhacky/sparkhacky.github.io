@@ -1,15 +1,29 @@
-<div class="hero-copy">
-  <p class="pill">Cyber Threat Intelligence</p>
-  <h1>Mhaykol Eng — <span>inteligencia accionable</span></h1>
-  <p>Threat-led analysis para equipos SOC y dirección: briefings diarios y writeups reproducibles.</p>
-  <nav class="hero-cta">
-    <a class="btn btn-xl" href="{{ '/blog/' | relative_url }}">
-      <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14a1 1 0 0 1 1 1v3H4V5a1 1 0 0 1 1-1zm-1 6h16v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V10z" fill="currentColor"/></svg>
-      <span>Ver briefings</span>
-    </a>
-    <a class="btn btn-xl ghost" href="{{ '/writeups/' | relative_url }}">
-      <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM14 2v6h6" fill="currentColor"/></svg>
-      <span>Leer writeups</span>
-    </a>
-  </nav>
-</div>
+<header class="hero">
+  <picture>
+    <!-- Puedes cambiar site.hero_image en _config.yml si quieres otra ruta -->
+    <source srcset="{{ site.hero_image | default: '/assets/images/hero-cti.webp' | relative_url }}" type="image/webp">
+    <img class="hero-bg"
+         src="{{ site.hero_image_fallback | default: '/assets/images/hero-cti.jpg' | relative_url }}"
+         alt="Mapa y grafo CTI"
+         loading="eager" decoding="async">
+  </picture>
+
+  <div class="hero-overlay"></div>
+  <div class="hero-ink"></div>
+
+  <div class="hero-copy">
+    <p class="pill">Cyber Threat Intelligence</p>
+    <h1>Mhaykol Eng — <span>inteligencia accionable</span></h1>
+    <p>Threat-led analysis para equipos SOC y dirección: briefings diarios y writeups reproducibles.</p>
+    <nav class="hero-cta">
+      <a class="btn btn-xl" href="{{ '/blog/' | relative_url }}">
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14a1 1 0 0 1 1 1v3H4V5a1 1 0 0 1 1-1zm-1 6h16v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V10z" fill="currentColor"/></svg>
+        <span>Ver briefings</span>
+      </a>
+      <a class="btn btn-xl ghost" href="{{ '/writeups/' | relative_url }}">
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM14 2v6h6" fill="currentColor"/></svg>
+        <span>Leer writeups</span>
+      </a>
+    </nav>
+  </div>
+</header>
