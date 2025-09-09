@@ -338,13 +338,13 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
 /* ========================================================================== */
 /* 12) FOOTER (estilo Lovable)                                                */
 /* ========================================================================== */
-.site-footer{
+.site-footer {
   border-top:1px solid rgba(255,255,255,.08);
- padding-bottom: 1.4rem 1rem 1.2rem;  /* compacto */
-  background:
-    linear-gradient(0deg,rgba(106,61,200,.09),rgba(106,61,200,0) 60%),
-    linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.01));
+  padding: 2rem 1rem 1.8rem;   /* más aire */
+  color: var(--ink-2);
+  background: linear-gradient(180deg, rgba(18,28,45,.78), rgba(12,22,35,.95));
 }
+
 .footer-top{
   display:grid; grid-template-columns:2fr 1fr 1fr; gap:1.4rem; /* compacto */
   max-width:var(--maxw); margin:0 auto 1.2rem;
