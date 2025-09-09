@@ -342,8 +342,8 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
 .about-hero .avatar::before {
   content: "";
   position: absolute;
-  top: 15%;        /* Ajusta la posición vertical de la bolita */
-  left: 20%;       /* Ajusta la posición horizontal de la bolita */
+  top: 10%;        /* Ajusta la posición vertical de la bolita */
+  left: 15%;       /* Ajusta la posición horizontal de la bolita */
   width: 40%;      /* Tamaño de la bolita (40 % del diámetro del círculo) */
   height: 40%;
   border-radius: 50%;
