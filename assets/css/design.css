@@ -188,7 +188,7 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
 .hero-copy p{ color:var(--ink-2); max-width:60ch; margin:0 auto 1rem }
 .pill{
   position: absolute;
-  top: 30px;          /* separa del borde superior */
+  top: 10px;          /* separa del borde superior */
   left: 24px;         /* pegada a la izquierda */
   margin: 0 !important;
   transform: none !important;
