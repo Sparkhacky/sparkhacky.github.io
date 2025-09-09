@@ -3,15 +3,18 @@ layout: home
 title: "Inicio"
 ---
 
-<section class="home-section">
+<section class="container home-section" id="briefings">
   <h2>Daily Intelligence Briefings</h2>
-  <p>Análisis diarios de amenazas emergentes, tendencias y recomendaciones para equipos SOC.</p>
-  <div class="grid">
-    {% for post in site.posts limit:6 %}
-      {% include card.html item=post kind="post" %}
+  <p class="lede">Análisis diarios de amenazas emergentes, tendencias y recomendaciones para equipos SOC.</p>
+
+  <div class="cards-xl">
+    {% assign latest = site.posts | slice: 0, 6 %}
+    {% for post in latest %}
+      {% include card-briefing.html post=post %}
     {% endfor %}
   </div>
 </section>
+
 
 <section class="home-section">
   <h2>Writeups técnicos</h2>
