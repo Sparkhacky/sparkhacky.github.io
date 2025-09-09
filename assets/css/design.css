@@ -19,9 +19,9 @@
 
   --maxw:1200px;               /* ancho útil (2 columnas cómodas) */
 
-  /* Bandas alternas – por defecto desactivadas; activar con .bands-on en <body> */
-  --band-1: transparent;
-  --band-2: transparent;
+  /* Alternancia de bandas (sutil) */
+  --band-odd:  rgba(255,255,255,.02);
+  --band-even: rgba(106,61,200,.06);
 }
 
 /* ========================================================================== */
@@ -42,24 +42,27 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
 .prose a{ text-decoration:underline; text-underline-offset:2px }
 .prose a:hover{ text-decoration:none; border-bottom:1px solid currentColor }
 
-/* Foco visible */
+/* Foco visible / reducción de motion */
 :focus-visible{ outline:3px solid #B3A0FF; outline-offset:2px }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
 /* ========================================================================== */
-/* 03) LAYOUT / CONTAINERS                                                    */
+/* 03) LAYOUT / CONTAINERS + BANDAS                                           */
 /* ========================================================================== */
 .container,
 .container-wide{ max-width:var(--maxw); margin:0 auto; padding:1.2rem 1rem 3rem }
-.home-section{ position:relative; z-index:0; margin:2.2rem auto 3rem }
+.home-section{ position:relative; z-index:0; margin:1.4rem auto 1.9rem } /* compacto */
 .prose{ margin-bottom:3rem }
 
-/* Bandas alternas (desactivadas por defecto). Actívalas con <body class="bands-on"> */
-.bands-on .home-section::before{
-  content:""; position:absolute; inset:0 calc(50% - 50vw); z-index:-1;
-  background:var(--band-1);
+/* Alternancia de color por sección (sutil, sin líneas duras) */
+.home-section::before{
+  content:"";
+  position:absolute;
+  inset:0 calc(50% - 50vw); /* cubre de borde a borde del viewport */
+  z-index:-1;
+  background:var(--band-odd);
 }
-.bands-on .home-section:nth-of-type(even)::before{ background:var(--band-2) }
+.home-section:nth-of-type(even)::before{ background:var(--band-even) }
 
 /* Cabeceras de sección centradas + subtítulo (lede) */
 .section-head, .home-section > h2, .home-section > p.lede{ text-align:center }
@@ -181,12 +184,12 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
 .btn.ghost:hover{ border-color:rgba(142,92,255,.45) }
 .btn.arrow .i{ transition:transform .15s ease }
 .btn.arrow:hover .i{ transform:translateX(4px) }
-.cta-center{ text-align:center; margin-top:1.25rem }
+.cta-center{ text-align:center; margin-top:1.1rem }
 
 /* ========================================================================== */
 /* 07) CARDS & GRIDS (genérico)                                               */
 /* ========================================================================== */
-.grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1rem }
+.grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.1rem }
 @media (max-width:900px){ .grid{ grid-template-columns:repeat(2,1fr) } }
 @media (max-width:600px){ .grid{ grid-template-columns:1fr } }
 
@@ -223,14 +226,14 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
 /* 08) BRIEFINGS (grid centrada + tarjeta rica)                               */
 /* ========================================================================== */
 .cards-xl{
-  display:flex; flex-wrap:wrap; gap:2rem; justify-content:center; align-items:stretch;
+  display:flex; flex-wrap:wrap; gap:1.1rem; justify-content:center; align-items:stretch;
   max-width:1200px; margin:0 auto;
 }
 .briefing-card{
   width:min(100%,560px);
   background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.02));
   border:1px solid rgba(255,255,255,.08); border-radius:20px;
-  padding:1.25rem 1.25rem 1rem; box-shadow:var(--shadow-sm);
+  padding:1.15rem 1.15rem .95rem; box-shadow:var(--shadow-sm);
   transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
   position:relative;
 }
@@ -278,16 +281,19 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
 /* ========================================================================== */
 /* 10) GRIDS ESPECÍFICOS (writeups/proyectos 2 col)                           */
 /* ========================================================================== */
-.grid--2{ display:grid !important; grid-template-columns:repeat(2,minmax(480px,1fr)); gap:2rem; place-content:center }
+.grid--2{ display:grid !important; grid-template-columns:repeat(2,minmax(480px,1fr)); gap:1.1rem; place-content:center }
 .grid--2 > .card{ width:100% }
 @media (max-width:1100px){ .grid--2{ grid-template-columns:1fr } }
-.home-section .grid{ display:flex; flex-wrap:wrap; gap:2rem; justify-content:center; align-items:stretch; margin:0 auto }
+.home-section .grid{ display:flex; flex-wrap:wrap; gap:1.1rem; justify-content:center; align-items:stretch; margin:0 auto }
 .home-section .card{ width:min(100%,520px) }
 @media (max-width:700px){ .briefing-card, .home-section .card{ width:100% } }
 
 /* ========================================================================== */
-/* 11) ABOUT (hero, tiles, redes)                                             */
+/* 11) ABOUT (hero, tiles, redes) — sin bandas y más compacto en About        */
 /* ========================================================================== */
+.about-page .home-section{ margin:1.1rem auto 1.4rem; background:transparent }
+.about-page .home-section::before{ content:none } /* quita bandas en About */
+
 .about-hero{ text-align:center }
 .about-hero h1{ margin-bottom:.6rem }
 .about-hero .lede{ color:var(--ink); font-size:clamp(1.06rem,1.2vw,1.2rem) }
@@ -310,7 +316,7 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
 
 .pill-card{
   display:flex; flex-direction:column; align-items:center; justify-content:center;
-  padding:1.2rem 1rem; border-radius:18px;
+  padding:1.05rem .95rem; border-radius:16px; /* compacto */
   background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.02));
   border:1px solid rgba(255,255,255,.10); box-shadow:var(--shadow-sm);
   color:var(--ink); transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
@@ -324,8 +330,8 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
 }
 
 /* Redes sociales */
-.social-row{ display:flex; flex-wrap:wrap; gap:.7rem; justify-content:center }
-.social-row .btn{ border-radius:999px; padding:.7rem .9rem }
+.social-row{ display:flex; flex-wrap:wrap; gap:.7rem; justify-content:center; margin-top:.6rem }
+.social-row .btn{ border-radius:999px; padding:.62rem .9rem }
 .social-row .btn .i{ width:18px; height:18px; margin-right:.35rem }
 
 /* ========================================================================== */
@@ -333,13 +339,13 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
 /* ========================================================================== */
 .site-footer{
   border-top:1px solid rgba(255,255,255,.08);
-  padding:2rem 1rem 1.2rem; color:var(--ink-2);
+  padding:1.4rem 1rem 1.2rem; color:var(--ink-2); /* compacto */
   background:
     linear-gradient(0deg,rgba(106,61,200,.09),rgba(106,61,200,0) 60%),
     linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.01));
 }
 .footer-top{
-  display:grid; grid-template-columns:2fr 1fr 1fr; gap:2rem;
+  display:grid; grid-template-columns:2fr 1fr 1fr; gap:1.4rem; /* compacto */
   max-width:var(--maxw); margin:0 auto 1.2rem;
 }
 @media (max-width:980px){ .footer-top{ grid-template-columns:1fr 1fr } }
