@@ -1,0 +1,20 @@
+{% assign p = include.post %}
+<article class="briefing-card">
+  <header>
+    <span class="label">🕒 Briefing</span>
+    <time class="date" datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: "%Y-%m-%d" }}</time>
+  </header>
+
+  <a class="title" href="{{ p.url | relative_url }}">{{ p.title }}</a>
+  <p class="excerpt">{{ p.excerpt | default:p.content | strip_html | truncate: 220 }}</p>
+
+  {% include cti-badges.html item=p %}
+
+  {% if p.tags and p.tags.size > 0 %}
+  <div class="tags">
+    {% for t in p.tags limit:6 %}
+      <span class="tag">#{{ t }}</span>
+    {% endfor %}
+  </div>
+  {% endif %}
+</article>
