@@ -1,7 +1,120 @@
----
-layout: default
----
-{% include header.html %}
-<div class="container">
-  {{ content }}
-</div>
+<!doctype html>
+<html lang="es">
+<head>
+  {% include head.html %}
+</head>
+<body class="page-home">
+  {% include nav.html %}
+
+  <main id="main" class="main">
+
+    <!-- HERO ÚNICO -->
+    <section class="hero hero--wide">
+      <img class="hero-bg" src="{{ '/assets/hero/worldmap.webp' | relative_url }}" alt="">
+      <div class="hero-overlay"></div>
+      <div class="hero-ink"></div>
+
+      <div class="hero-copy">
+        <span class="pill pill-cti">
+          <span class="dot"></span> Cyber Threat Intelligence
+        </span>
+
+        <h1>
+          Transformando datos en
+          <span>inteligencia accionable</span>
+        </h1>
+
+        <p class="lede">
+          Analista junior especializado en <strong>CTI</strong> con enfoque en
+          <strong>OSINT</strong>, análisis de amenazas y desarrollo de capacidades defensivas.
+        </p>
+
+        <div class="hero-cta">
+          <a class="btn btn-xl" href="{{ '/briefings/' | relative_url }}">
+            <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
+            Ver briefings
+          </a>
+          <a class="btn btn-xl ghost" href="{{ '/writeups/' | relative_url }}">
+            <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h14v14H4zM8 20h12V8"/></svg>
+            Leer writeups
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 1 · BRIEFINGS -->
+    <section class="home-section zebra">
+      <div class="container">
+        <header class="section-head">
+          <h2>Daily Intelligence Briefings</h2>
+          <p class="lede">Análisis diarios de amenazas emergentes, tendencias y recomendaciones para equipos SOC.</p>
+        </header>
+
+        <div class="cards-xl">
+          {% assign latest = site.posts | slice: 0, 6 %}
+          {% for post in latest %}
+            {% include card-briefing.html post=post %}
+          {% endfor %}
+        </div>
+
+        <div class="section-cta">
+          <a class="btn pill-cta" href="{{ '/briefings/' | relative_url }}">
+            Ver todos los briefings
+            <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l8 7-8 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 2 · WRITEUPS -->
+    <section class="home-section zebra alt">
+      <div class="container">
+        <header class="section-head">
+          <h2>Technical Writeups</h2>
+          <p class="lede">Documentación detallada de análisis de malware, explotación y vulnerabilidades con enfoque didáctico.</p>
+        </header>
+
+        <div class="grid">
+          {% assign items = site.writeups | sort: 'date' | reverse %}
+          {% for w in items limit:3 %}
+            {% include card.html item=w kind="writeup" %}
+          {% endfor %}
+        </div>
+
+        <div class="section-cta">
+          <a class="btn pill-cta" href="{{ '/writeups/' | relative_url }}">
+            Explorar writeups
+            <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l8 7-8 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 3 · PROYECTOS -->
+    <section class="home-section zebra">
+      <div class="container">
+        <header class="section-head">
+          <h2>Proyectos & Herramientas</h2>
+          <p class="lede">Automatización de CTI, mapeo ATT&CK y visualizaciones para mejorar capacidades defensivas.</p>
+        </header>
+
+        <div class="grid">
+          {% assign projs = site.projects | sort: 'date' | reverse %}
+          {% for p in projs limit:3 %}
+            {% include card.html item=p kind="project" %}
+          {% endfor %}
+        </div>
+
+        <div class="section-cta">
+          <a class="btn pill-cta" href="https://github.com/sparkhacky" target="_blank" rel="noopener">
+            Ver repositorios
+            <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l8 7-8 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  {% include footer.html %}
+</body>
+</html>
