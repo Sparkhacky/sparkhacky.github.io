@@ -295,6 +295,9 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
 .about-page .home-section{ 
   margin:1.1rem auto 1.4rem; 
   background: linear-gradient(180deg, #0B1622 0%, #0E1D31 100%);
+}
+
+.about-page .home-section:last-of-type {
   padding-bottom: 2.5rem !important;
 }
 
