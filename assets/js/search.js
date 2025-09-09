@@ -1,7 +1,23 @@
-(() => {
-  const INPUT = document.getElementById('q') || document.getElementById('site-search');
-  const RESULTS = document.getElementById('search-results');
-  if (!INPUT || !RESULTS) return;
+document.addEventListener('DOMContentLoaded', () => {
+  // PATCH: si queda oninput="siteSearch(...)" en alguna página, evitamos error
+  window.siteSearch = window.siteSearch || function(){};
+
+  const INPUT =
+    document.getElementById('q') ||
+    document.getElementById('site-search') ||
+    document.querySelector('.site-search input[type="search"]');
+
+  if (!INPUT) return;
+
+  let RESULTS = document.getElementById('search-results');
+  if (!RESULTS) {
+    RESULTS = document.createElement('div');
+    RESULTS.id = 'search-results';
+    RESULTS.className = 'search-results';
+    RESULTS.setAttribute('role', 'listbox');
+    RESULTS.hidden = true;
+    INPUT.parentElement.appendChild(RESULTS);
+  }
 
   let data = [];
   let activeIdx = -1;
@@ -10,8 +26,8 @@
     .toLowerCase()
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
-  // Carga del índice
-  fetch('/search.json')
+  // Carga índice (usar ruta relativa para que funcione con/ sin baseurl)
+  fetch('search.json')
     .then(r => r.json())
     .then(json => {
       data = [...(json.posts || []), ...(json.writeups || [])].map(item => ({
@@ -24,7 +40,7 @@
         ].join(' '))
       }));
     })
-    .catch(() => { /* falla silenciosa para no romper la UI */ });
+    .catch(() => {/* silencio */});
 
   function hide() {
     RESULTS.hidden = true;
@@ -54,11 +70,11 @@
       a.setAttribute('role', 'option');
       a.dataset.index = idx;
 
-      // Resaltado de tokens en el título
+      // Resaltado en título
       let htmlTitle = it.title;
       tokens.forEach(tok => {
         if (!tok) return;
-        const re = new RegExp(`(${tok.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'ig');
+        const re = new RegExp(`(${tok.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\$&')})`, 'ig');
         htmlTitle = htmlTitle.replace(re, '<mark>$1</mark>');
       });
 
@@ -67,7 +83,6 @@
         <span class="title">${htmlTitle}</span>
         ${it.date ? `<span class="meta">${it.date}</span>` : ''}
       `;
-
       a.addEventListener('mousemove', () => setActive(idx));
       a.addEventListener('click', () => hide());
       frag.appendChild(a);
@@ -116,6 +131,6 @@
     }
   });
 
-  // Ocultar al perder foco (permite click en opciones)
+  // Ocultar con blur (pequeño retraso para permitir click en sugerencias)
   INPUT.addEventListener('blur', () => setTimeout(hide, 150));
-})();
+});
