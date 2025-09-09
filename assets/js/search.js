@@ -1,5 +1,6 @@
+/* --- search.js --- */
 document.addEventListener('DOMContentLoaded', () => {
-  // PATCH: si queda oninput="siteSearch(...)" en alguna página, evitamos error
+  // Compat: evitar que un oninput viejo rompa todo
   window.siteSearch = window.siteSearch || function(){};
 
   const INPUT =
@@ -16,7 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
     RESULTS.className = 'search-results';
     RESULTS.setAttribute('role', 'listbox');
     RESULTS.hidden = true;
-    INPUT.parentElement.appendChild(RESULTS);
+    // metemos el dropdown junto al input
+    (INPUT.parentElement || document.body).appendChild(RESULTS);
   }
 
   let data = [];
@@ -26,21 +28,39 @@ document.addEventListener('DOMContentLoaded', () => {
     .toLowerCase()
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
-  // Carga índice (usar ruta relativa para que funcione con/ sin baseurl)
-  fetch('search.json')
-    .then(r => r.json())
-    .then(json => {
-      data = [...(json.posts || []), ...(json.writeups || [])].map(item => ({
-        ...item,
-        _hay: normalize([
-          item.title,
-          (item.tags || []).join(' '),
-          (item.categories || []).join(' '),
-          item.excerpt
-        ].join(' '))
-      }));
-    })
-    .catch(() => {/* silencio */});
+  // --------- Carga robusta del índice ---------
+  async function loadIndex() {
+    const base = document.body?.dataset?.baseurl || '';
+    const candidates = [
+      `${base}/search.json`, // correcto para project sites y user sites
+      '/search.json',        // absoluto desde raíz (user sites)
+      'search.json'          // relativo por si el sitio está en raíz
+    ];
+
+    for (const url of candidates) {
+      try {
+        const r = await fetch(url, { cache: 'no-store' });
+        if (r.ok) {
+          const json = await r.json();
+          data = [...(json.posts || []), ...(json.writeups || [])].map(item => ({
+            ...item,
+            _hay: normalize([
+              item.title,
+              (item.tags || []).join(' '),
+              (item.categories || []).join(' '),
+              item.excerpt
+            ].join(' '))
+          }));
+          console.debug('[search] Índice cargado desde', url, '→', data.length, 'items');
+          return true;
+        }
+      } catch (e) {
+        // seguimos probando candidatos
+      }
+    }
+    console.warn('[search] No pude cargar search.json en ninguna ruta candidata');
+    return false;
+  }
 
   function hide() {
     RESULTS.hidden = true;
@@ -70,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
       a.setAttribute('role', 'option');
       a.dataset.index = idx;
 
-      // Resaltado en título
+      // Resaltado básico en el título
       let htmlTitle = it.title;
       tokens.forEach(tok => {
         if (!tok) return;
@@ -95,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   INPUT.addEventListener('input', (e) => {
     const q = normalize(e.target.value.trim());
-    if (q.length < 2) { hide(); return; }
+    if (q.length < 2 || !data.length) { hide(); return; }
     const toks = q.split(/\s+/).filter(Boolean);
 
     const list = data
@@ -131,6 +151,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Ocultar con blur (pequeño retraso para permitir click en sugerencias)
   INPUT.addEventListener('blur', () => setTimeout(hide, 150));
+
+  // Dispara la carga del índice
+  loadIndex();
 });
