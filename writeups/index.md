@@ -11,7 +11,7 @@ no_page_title: true
     <p class="lede">Documentación detallada de análisis, explotación y mapeo MITRE ATT&amp;CK con enfoque didáctico.</p>
   </header>
 
-  <div class="cards-xl">
+  <div class="grid">
     {% assign items = site.writeups | sort: 'date' | reverse %}
     {% for w in items %}
       {% include card.html item=w kind="writeup" %}
