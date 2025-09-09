@@ -86,6 +86,29 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
   position: relative; /* necesario para que funcione el ::before */
 }
 
+/* Solo afecta al logo del menú, no al del footer */
+.site-nav .logo-mark {
+  position: relative; /* imprescindible para el pseudo-elemento */
+}
+
+.site-nav .logo-mark::before {
+  content: "";
+  position: absolute;
+  top: 20%;       /* posición vertical de la bolita */
+  left: 20%;      /* posición horizontal */
+  width: 60%;     /* tamaño relativo de la bolita */
+  height: 60%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    #E5D0FF 0%,
+    #D0B4FF 70%,
+    #B78AFF 100%
+  );
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+
 .logo-text{
   font-weight:800; letter-spacing:.2px;
   background:linear-gradient(90deg,var(--accent),var(--accent-2));
