@@ -1,20 +1,60 @@
-{% assign p = include.post %}
+{%- assign p = include.post -%}
 <article class="briefing-card">
-  <header>
-    <span class="label">🕒 Briefing</span>
-    <time class="date" datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: "%Y-%m-%d" }}</time>
+  <header class="card-head">
+    <span class="label-pill">
+      <svg class="i" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" stroke="currentColor" opacity=".6"/>
+        <path d="M12 7v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      Briefing
+    </span>
+    <time class="chip" datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: "%Y-%m-%d" }}</time>
   </header>
 
-  <a class="title" href="{{ p.url | relative_url }}">{{ p.title }}</a>
-  <p class="excerpt">{{ p.excerpt | default:p.content | strip_html | truncate: 220 }}</p>
+  <div class="card-stack">
+    <a class="card-title" href="{{ p.url | relative_url }}">{{ p.title }}</a>
+    {%- if p.excerpt -%}
+      <p class="card-excerpt">{{ p.excerpt | strip_html | truncate: 220 }}</p>
+    {%- endif -%}
 
-  {% include cti-badges.html item=p %}
+    <!-- Badges TLP & Severidad -->
+    <div class="meta-row">
+      {%- if p.tlp -%}
+        {%- assign tlp_class = p.tlp | downcase | prepend: "tlp-" -%}
+        <span class="badge {{ tlp_class }}">
+          TLP:{{ p.tlp | upcase }}
+        </span>
+      {%- endif -%}
+      {%- if p.severity -%}
+        {%- assign sev_class = p.severity | downcase | prepend: "sev-" -%}
+        <span class="badge {{ sev_class }}">
+          {{ p.severity | upcase }}
+        </span>
+      {%- endif -%}
+    </div>
 
-  {% if p.tags and p.tags.size > 0 %}
-  <div class="tags">
-    {% for t in p.tags limit:6 %}
-      <span class="tag">#{{ t }}</span>
-    {% endfor %}
+    <!-- Sector / Región -->
+    <div class="meta-row">
+      {%- if p.sector -%}<span class="chip">{{ p.sector }}</span>{%- endif -%}
+      {%- if p.region -%}<span class="chip">{{ p.region }}</span>{%- endif -%}
+    </div>
+
+    <!-- Técnicas MITRE -->
+    {%- if p.techniques and p.techniques.size > 0 -%}
+    <div class="meta-row">
+      {%- for t in p.techniques -%}
+        <span class="chip mitre">{{ t }}</span>
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
+
+    <!-- Tags -->
+    {%- if p.tags and p.tags.size > 0 -%}
+    <div class="meta-row">
+      {%- for tag in p.tags -%}
+        <span class="chip">#{{ tag }}</span>
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
   </div>
-  {% endif %}
 </article>
