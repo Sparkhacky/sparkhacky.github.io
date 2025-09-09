@@ -30,7 +30,9 @@ permalink: /about/
   </div>
 
   <div class="social-row">
-    <a class="pill pill-cta" href="mailto:maikol.eng.tech@gmail.com"><span class="i">✉️</span> Email</a>
+    <a class="pill pill-cta" 
+   href="https://mail.google.com/mail/?view=cm&fs=1&to=maikol.eng.tech@gmail.com" 
+   target="_blank" rel="noopener noreferrer">✉️</span> Email</a>
     <a class="pill pill-cta" href="https://youtube.com/sparkhacky" target="_blank" rel="noopener"><span class="i">▶️</span> YouTube</a>
     <a class="pill pill-cta" href="https://instagram.com/sparkhacky" target="_blank" rel="noopener"><span class="i">📷</span> Instagram</a>
     <a class="pill pill-cta" href="https://www.linkedin.com/in/maikolengcs" target="_blank" rel="noopener"><span class="i">in</span> LinkedIn</a>
