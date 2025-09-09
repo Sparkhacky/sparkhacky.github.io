@@ -280,3 +280,37 @@ a:hover{text-decoration:underline}
 /* ========================================================================== */
 :focus-visible{outline:3px solid #B3A0FF;outline-offset:2px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* === Secciones centradas + lede con otra tonalidad === */
+:root{
+  --lede:#B7C6D4; /* tono más claro/azulado que --ink-2 para subtítulos */
+}
+.home-section > h2,
+.home-section > .section-head h2,
+.home-section > p.lede,
+.home-section > .section-head .lede{
+  text-align:center;
+}
+.section-head .lede,
+.home-section > p.lede{ color: var(--lede); }
+
+/* === Efecto violeta en el título de las cards al pasar el ratón === */
+.card .title,
+.card h3,
+.briefing-card .title{
+  transition: color .18s ease, background .18s ease;
+}
+.card:hover .title,
+.card:hover h3,
+.briefing-card:hover .title{
+  background: linear-gradient(90deg, var(--accent-2), var(--accent));
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent; /* consigue el “violeta gradual” de Lovable */
+  text-decoration: none;
+}
+
+/* === CTA centrado bajo cada sección (si no lo tienes ya) === */
+.cta-center{ text-align:center; margin: 1.5rem 0 0; }
+.btn.arrow .i{ transition: transform .15s ease; }
+.btn.arrow:hover .i{ transform: translateX(4px); }
+
