@@ -4,8 +4,8 @@ url: "https://sparkhacky.github.io"
 baseurl: ""
 
 # _config.yml
-hero_image: /assets/images/hero-cti.webp
-hero_image_fallback: /assets/images/hero-cti.jpg
+hero_image: /assets/images/hero.jpg
+hero_image_fallback: /assets/images/hero.jpg
 
 
 markdown: kramdown
