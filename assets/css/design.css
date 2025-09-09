@@ -781,3 +781,19 @@ a{ text-decoration:none }
   color: #C9B2FF; /* violeta claro de tu paleta */
   text-shadow: 0 0 24px rgba(142,92,255,.35);
 }
+
+/* Secciones de la home */
+.home-section {
+  position: relative;
+  padding: 2.6rem 0 3.2rem;
+  margin: 0;              /* <— Eliminamos el margen vertical que generaba la franja oscura */
+}
+
+/* Alternancia de color (sigue igual) */
+.home-section.zebra { 
+  background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+}
+.home-section.zebra.alt {
+  background: linear-gradient(180deg, rgba(18,28,45,.78), rgba(12,22,35,.86));
+}
+
