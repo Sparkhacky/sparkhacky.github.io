@@ -158,6 +158,7 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
   padding:.28rem .6rem; border-radius:999px;
   border:1px solid rgba(255,255,255,.16); background:rgba(255,255,255,.05);
 }
+.site-search input[type="search"] { min-width: 18ch; }
 .site-search .i{ width:18px; height:18px; opacity:.8 }
 .site-search input{ background:transparent; border:none; outline:none; color:var(--ink); min-width:10ch; padding:.2rem 0 }
 .site-search input::placeholder{ color:var(--ink-2) }
