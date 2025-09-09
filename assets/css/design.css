@@ -340,7 +340,7 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
 /* ========================================================================== */
 .site-footer{
   border-top:1px solid rgba(255,255,255,.08);
-  padding:1.4rem 1rem 1.2rem; color:var(--ink-2); /* compacto */
+ padding-bottom: 0 !important; /* compacto */
   background:
     linear-gradient(0deg,rgba(106,61,200,.09),rgba(106,61,200,0) 60%),
     linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.01));
