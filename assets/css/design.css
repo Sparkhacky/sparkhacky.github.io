@@ -394,3 +394,47 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
    introducir fondos propios */
 .container, .container-wide{ background:transparent !important; }
 
+/* === WRITEUPS PAGE – Header centrado y rejilla ========================= */
+.page-section { margin: 1rem auto 2rem; }
+.page-writeups .section-head { text-align:center; max-width:70ch; margin:0 auto 1.4rem; }
+.page-writeups .section-head .lede { color: var(--ink-2); }
+
+/* Rejilla como en home, centrada */
+.page-writeups .cards-xl{
+  display:flex; flex-wrap:wrap; gap:2rem; justify-content:center; align-items:stretch;
+  max-width:1200px; margin:0 auto;
+}
+.page-writeups .cards-xl .card{ width:min(100%, 560px); }
+
+/* === Títulos de cards con gradiente en hover (tipo Lovable) ============ */
+/* Cubrimos varios HTML posibles: <a class="title">, <h3><a>...</a></h3>, etc. */
+.card .title,
+.card h3 a,
+.briefing-card .title{
+  text-decoration:none;
+  transition: color .18s ease, background .18s ease;
+}
+
+/* Hover violeta sobre el título, sin subrayado */
+.card:hover .title,
+.card h3 a:hover,
+.briefing-card:hover .title{
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  text-decoration:none;
+}
+
+/* === No subrayar enlaces dentro de cards & pills/nav/buttons =========== */
+.card a:hover,
+.briefing-card a:hover,
+.pill-nav:hover,
+.btn:hover,
+.chip:hover { text-decoration: none !important; }
+
+/* Mantenemos subrayado sólo para contenido largo/prosa */
+.prose a { text-decoration: underline; }
+.prose a:hover { text-decoration: none; border-bottom: 1px solid currentColor; }
+
+/* Pequeño ajuste de separación superior de la primera card */
+.page-writeups .cards-xl .card:first-child { margin-top: .2rem; }
+
