@@ -314,6 +314,33 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
   box-shadow: inset 0 0 0 6px rgba(255,255,255,.08), 0 12px 36px rgba(0,0,0,.28);
 }
 
+/* Asegura que el avatar pueda posicionar hijos absolutos */
+.about-hero .avatar {
+  position: relative;
+}
+
+/* Bolita interior del avatar */
+.about-hero .avatar::before {
+  content: "";
+  position: absolute;
+  top: 20%;        /* Ajusta la posición vertical de la bolita */
+  left: 20%;       /* Ajusta la posición horizontal de la bolita */
+  width: 40%;      /* Tamaño de la bolita (40 % del diámetro del círculo) */
+  height: 40%;
+  border-radius: 50%;
+  /* Gradiente del círculo interior: empieza más claro y acaba un poco más oscuro */
+  background: radial-gradient(
+    circle at 30% 30%,
+    #E5D0FF 0%,    /* centro muy claro */
+    #D0B4FF 50%,   /* tono intermedio */
+    #B78AFF 100%   /* borde un poco más oscuro */
+  );
+  /* Sombra sutil para que la bolita parezca elevada */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  /* Si quieres que la bolita sea totalmente opaca y sin gradiente, puedes usar solo un background-color */
+}
+
+
 /* Textos intro */
 .about-hero .lede{
   color: var(--ink);
