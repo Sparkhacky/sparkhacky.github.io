@@ -54,16 +54,29 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
 .home-section{ position:relative; z-index:0} /* compacto */
 .prose{ margin-bottom:3rem }
 
-/* Alternancia de color por sección (sutil, sin líneas duras) */
-.home-section::before{
-  content:"";
-  position:absolute;
-  inset:0 calc(50% - 50vw); /* cubre de borde a borde del viewport */
-  z-index:-1;
-  background:var(--band-odd);
-  margin: 0;
+/* Alternancia de color por sección (sutil, sin líneas duras)
+   Se eliminan pseudo-elementos para evitar barras oscuras. En su lugar,
+   las secciones utilizan fondos gradientes alternos mediante clases.
+*/
+.home-section::before{ content: none; }
+
+/* Ajustamos los fondos alternos directamente en las secciones zebra. Todas las
+   secciones comparten el mismo degradado suave para que no aparezcan
+   franjas oscuras entre bloques. Si se desea un ligero contraste, modifique
+   los valores alfa aquí. */
+.home-section.zebra,
+.home-section.zebra.alt{
+  background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
 }
-.home-section:nth-of-type(even)::before{ background:var(--band-even) }
+
+/* Eliminamos espacio vertical oscuro extra aplicando el relleno superior a los
+   contenedores internos en lugar de a la propia sección. Esto mantiene la
+   separación interna sin crear bandas oscuras entre secciones. */
+.home-section{ padding-top: 0; }
+.home-section > .container,
+.home-section > .container-wide{
+  padding-top: 2.6rem;
+}
 
 /* Cabeceras de sección centradas + subtítulo (lede) */
 .section-head, .home-section > h2, .home-section > p.lede{ text-align:center }
@@ -187,11 +200,17 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
 }
 .hero-copy p{ color:var(--ink-2); max-width:60ch; margin:0 auto 1rem }
 .pill{
-  position: absolute;
-  top: 24px;          /* separa del borde superior */
-  left: 34px;         /* pegada a la izquierda */
-  margin: 0 !important;
-  transform: none !important;
+  /*
+   * La clase .pill se ha dejado sin posicionamiento absoluto por defecto. Si necesitas
+   * reubicar una píldora concreta (por ejemplo, en el hero), usa una clase
+   * específica (ver .hero .pill-cta más abajo). Esto evita posiciones
+   * indeseadas en otros contextos.
+   */
+  position: static;
+  top: auto;
+  left: auto;
+  margin: 0;
+  transform: none;
 }
 .hero-cta{ display:flex; gap:.8rem; justify-content:center }
 
@@ -437,6 +456,15 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
   box-shadow: 0 0 0 2px rgba(255,255,255,.18) inset, 0 0 8px rgba(142,92,255,.45);
 }
 
+/* Posiciona la etiqueta CTI dentro del hero en la esquina superior izquierda.
+   Esto sólo afecta a la clase .pill-cta cuando está dentro del hero. */
+.hero .pill-cta{
+  position:absolute;
+  top: 1rem;
+  left: 1rem;
+  margin: 0;
+}
+
 .social-row{ display:flex; flex-wrap:wrap; gap:.7rem; justify-content:center; margin-top:.6rem }
 .social-row .btn{ border-radius:999px; padding:.62rem .9rem }
 .social-row .btn .i{ width:18px; height:18px; margin-right:.35rem }
@@ -445,6 +473,14 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
 /* Asegura aire extra en móviles muy pequeños */
 @media (max-width: 420px){
   .social-row{ margin-bottom: 2.8rem; }
+}
+
+/* Centrar la fila de redes en el About y dar aire consistente */
+.about-page .social-row,
+.page-about  .social-row{
+  justify-content: center;
+  margin: 1.4rem auto 2.4rem;
+  padding: 0 1rem;
 }
 
 
