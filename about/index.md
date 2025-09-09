@@ -2,83 +2,70 @@
 title: "About"
 layout: default
 permalink: /about/
-description: "Mhaykol Eng — Cyber Threat Intelligence. Briefings rápidos, writeups reproducibles y recomendaciones accionables para equipos SOC."
+description: "Sparkhacky — Cyber Threat Intelligence. Briefings rápidos, writeups reproducibles y recomendaciones accionables."
 ---
 
-# Mhaykol Eng — Cyber Threat Intelligence
+<!-- Hero centrado con avatar -->
+<section class="container home-section about-hero">
+  <h1>About</h1>
 
-Convierto señales dispersas en **inteligencia accionable** para SOC y dirección. Publico **briefings rápidos** y **writeups reproducibles** centrados en **MITRE ATT&CK** y orientados a toma de decisiones.
-
-<div class="card" aria-label="Perfil profesional">
-  <div class="brand-head">
-    <span class="logo-mark" aria-hidden="true"></span>
-    <h3 class="brand-name">SparkHacky</h3>
+  <div class="avatar" aria-hidden="true">
+    <span class="avatar-ring"></span>
   </div>
-  <p class="brand-copy">
-    Transformando datos en inteligencia accionable. Análisis de ciberamenazas, writeups técnicos y desarrollo de herramientas CTI.
+
+  <p class="lede">
+    Analista junior especializado en <strong>Cyber Threat Intelligence</strong> con pasión por transformar datos en inteligencia accionable.
   </p>
-  <p class="tags">
-    <span class="chip">CTI Analyst</span>
-    <span class="chip">OSINT</span>
-    <span class="chip">Threat Hunter</span>
+  <p class="lede-2">
+    Combino <strong>OSINT</strong>, análisis de <strong>malware</strong> y <strong>threat hunting</strong> con mapeo <strong>MITRE ATT&amp;CK</strong>,
+    correlación de <strong>IoCs</strong> y <strong>automatización</strong> de procesos CTI. Enfoque didáctico, hipótesis explícitas y nivel de <em>confianza</em>.
   </p>
-</div>
+</section>
 
-## Qué hago
-- **Briefings diarios/semanales** con _takeaways_ claros para SOC y liderazgo.
-- **Writeups técnicos** reproducibles (TTPs, mapeo **ATT&CK**, IoCs, detecciones).
-- **Recomendaciones accionables** por criticidad y **TLP**.
-- **Herramientas ligeras** para automatizar recolección, parsing y enriquecimiento.
+<!-- Tiles de áreas de foco -->
+<section class="container home-section">
+  <div class="pill-grid">
+    <a class="pill-card" href="{{ '/blog/' | relative_url }}#osint">
+      <h3>OSINT</h3>
+      <span class="sub">Intelligence</span>
+    </a>
+    <a class="pill-card" href="{{ '/writeups/' | relative_url }}">
+      <h3>Malware</h3>
+      <span class="sub">Analysis</span>
+    </a>
+    <a class="pill-card" href="{{ '/blog/' | relative_url }}#threat">
+      <h3>Threat</h3>
+      <span class="sub">Hunting</span>
+    </a>
+    <a class="pill-card" href="{{ '/projects/' | relative_url }}">
+      <h3>Automation</h3>
+      <span class="sub">Tools</span>
+    </a>
+  </div>
+</section>
 
-## Metodología CTI (resumen)
-1. **Recolección**: fuentes abiertas y privadas → normalización.
-2. **Enriquecimiento**: correlación con **MITRE ATT&CK**, actores y sectores.
-3. **Análisis**: hipótesis, evidencias y confianza (**High/Medium/Low**).
-4. **Producto**: briefing ejecutivo + anexos técnicos (IoCs, reglas, queries).
-5. **Medición**: retroalimentación del SOC, actualización de hipótesis.
-
-## Áreas de foco
-<div class="tags">
-  <span class="chip">ATT&CK</span>
-  <span class="chip">EDR Evasion</span>
-  <span class="chip">Phishing</span>
-  <span class="chip">Ransomware</span>
-  <span class="chip">Infraestructura</span>
-  <span class="chip">Sector financiero</span>
-</div>
-
-## Stack y fuentes
-<div class="tags">
-  <span class="chip">OTX</span>
-  <span class="chip">AnyRun</span>
-  <span class="chip">MalwareBazaar</span>
-  <span class="chip">CISA Advisories</span>
-  <span class="chip">Jekyll/GitHub Pages</span>
-  <span class="chip">Python</span>
-</div>
-
-## Canales
-**LinkedIn** · **X** · **YouTube** · **Email**  
-<!-- 👉 Sustituye las URLs por las tuyas reales -->
-- LinkedIn: <https://www.linkedin.com/in/maikolengcs>
-- YouTube: <https://www.youtube.com/@SparkHacky>
-- Email: <mailto:maikol.eng.tech@gmail.com>
-
-## Política de difusión
-<span class="badge tlp-white">TLP:WHITE</span>
-<span class="badge conf-alta">Confianza: Alta</span>
-
-Este sitio publica inteligencia **TLP:WHITE** salvo indicación contraria. Cada pieza incluye nivel de **confianza** y metadatos **ATT&CK** cuando aplica.
-
----
-
-<div class="hero-cta" aria-label="Acciones rápidas">
-  <a class="btn btn-xl" href="{{ '/blog/' | relative_url }}">
-    <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14a1 1 0 0 1 1 1v3H4V5a1 1 0 0 1 1-1zm-1 6h16v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V10z" fill="currentColor"/></svg>
-    Ver briefings
-  </a>
-  <a class="btn btn-xl ghost" href="{{ '/writeups/' | relative_url }}">
-    <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM14 2v6h6" fill="currentColor"/></svg>
-    Leer writeups
-  </a>
-</div>
+<!-- Botones sociales -->
+<section class="container home-section">
+  <div class="social-row">
+    <a class="btn ghost" href="mailto:tuemail@example.com">
+      <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 6h16a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2zm0 2l8 5 8-5"/></svg>
+      Email
+    </a>
+    <a class="btn ghost" href="https://youtube.com/@tu_canal" target="_blank" rel="noopener">
+      <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M10 15l5.19-3L10 9v6z"/><path fill="currentColor" d="M21.58 7.19a2.76 2.76 0 00-1.94-1.95C18.1 4.8 12 4.8 12 4.8s-6.1 0-7.64.44a2.76 2.76 0 00-1.94 1.95A28.76 28.76 0 002 12a28.76 28.76 0 00.42 4.81 2.76 2.76 0 001.94 1.95C5.9 19.2 12 19.2 12 19.2s6.1 0 7.64-.44a2.76 2.76 0 001.94-1.95A28.76 28.76 0 0022 12a28.76 28.76 0 00-.42-4.81z"/></svg>
+      YouTube
+    </a>
+    <a class="btn ghost" href="https://instagram.com/tu_usuario" target="_blank" rel="noopener">
+      <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 5a5 5 0 100 10 5 5 0 000-10zm6.5-.75a1.25 1.25 0 11-2.5 0 1.25 1.25 0 012.5 0z"/></svg>
+      Instagram
+    </a>
+    <a class="btn ghost" href="https://x.com/tu_usuario" target="_blank" rel="noopener">
+      <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.3 2H21l-6.5 7.4L22 22h-5.6l-4.4-5.8L6.8 22H4l7-7.9L2 2h5.7l4 5.4L18.3 2z"/></svg>
+      Twitter
+    </a>
+    <a class="btn ghost" href="https://www.linkedin.com/in/tu-perfil" target="_blank" rel="noopener">
+      <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM0 8h5v16H0zM8 8h4.8v2.2h.07c.67-1.2 2.3-2.46 4.73-2.46 5.05 0 5.98 3.32 5.98 7.64V24h-5v-7.3c0-1.74-.03-3.98-2.43-3.98-2.44 0-2.81 1.9-2.81 3.86V24H8V8z"/></svg>
+      LinkedIn
+    </a>
+  </div>
+</section>
