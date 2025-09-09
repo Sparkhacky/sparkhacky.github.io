@@ -17,22 +17,18 @@ permalink: /about/
   </p>
 
   <div class="feature-tiles">
-    <a class="tile" href="/blog/">
+    <div class="tile">
       <div class="tile-title">OSINT</div>
       <div class="tile-sub">Intelligence</div>
-    </a>
-    <a class="tile" href="/writeups/">
-      <div class="tile-title">Malware</div>
+    </div>
+    <div class="tile">
+      <div class="tile-title">Writeups</div>
       <div class="tile-sub">Analysis</div>
-    </a>
-    <a class="tile" href="/writeups/">
-      <div class="tile-title">Threat</div>
-      <div class="tile-sub">Hunting</div>
-    </a>
-    <a class="tile" href="/projects/">
+    </div>
+    <div class="tile">
       <div class="tile-title">Automation</div>
       <div class="tile-sub">Tools</div>
-    </a>
+    </div>
   </div>
 
   <div class="social-row">
