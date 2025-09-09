@@ -7,7 +7,6 @@ date: 2025-09-03
 
 **TLP: WHITE** · **Confianza: Alta**  
 
-### Contexto
 Google ha publicado el Android Security Bulletin de septiembre de 2025 e indica “explotación limitada y dirigida” de dos vulnerabilidades (CVE-2025-38352 y CVE-2025-48543). Los niveles de parche 2025-09-01/2025-09-05 corrigen todas las fallas divulgadas.
 
 ### Hallazgos principales
@@ -16,9 +15,6 @@ Google ha publicado el Android Security Bulletin de septiembre de 2025 e indica 
 - **Estado de explotación:** Google y un CERT gubernamental confirman explotación limitada/dirigida de CVE-2025-38352 y CVE-2025-48543.
 - **Cobertura de parches:** 2025-09-05 (o superior) aborda todas las vulnerabilidades del boletín; fabricantes irán desplegando OTA.
 
-**MITRE ATT&CK (Mobile):** TA0029, T1404
-- TA0029 – Privilege Escalation
-- T1404 – Exploitation for Privilege Escalation (Mobile)
 ### Nivel de riesgo
 🔴 **Alto**
 
