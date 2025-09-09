@@ -314,3 +314,63 @@ a:hover{text-decoration:underline}
 .btn.arrow .i{ transition: transform .15s ease; }
 .btn.arrow:hover .i{ transform: translateX(4px); }
 
+/* ===================== Bandas alternas por sección (estilo Lovable) ===================== */
+:root{
+  /* tonos de banda (muy sutiles para no “parchear” el gradient global) */
+  --band-1: rgba(255,255,255,.02);
+  --band-2: rgba(106,61,200,.06);
+}
+
+/* cada bloque .home-section pinta una banda a ancho completo detrás del contenedor */
+.home-section{ position: relative; z-index: 0; }
+.home-section::before{
+  content:"";
+  position: absolute;
+  /* truco para cubrir de margen a margen del viewport */
+  inset: 0 calc(50% - 50vw);
+  background: var(--band-1);
+  z-index: -1;
+}
+/* alterna el tono en pares/impares automáticamente */
+.home-section:nth-of-type(even)::before{ background: var(--band-2); }
+
+/* un poco de aire antes del CTA para que quede “ordenado” */
+.cta-center{ margin-top: 1.25rem; }
+
+/* ===================== Subtítulos con otro tono (lede) ===================== */
+:root{ --lede:#B7C6D4; }              /* más claro que --ink-2 */
+.section-head .lede,
+.home-section > p.lede{ color: var(--lede); text-align:center; }
+
+/* ===================== Quitar subrayados fuera de .prose ===================== */
+/* por defecto, nada subrayado */
+a, .btn, .pill-nav, .site-nav a{ text-decoration: none; }
+a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration: none; }
+/* mantener subrayado solo en contenido editorial (posts) */
+.prose a{ text-decoration: underline; text-underline-offset: 2px; }
+.prose a:hover{ text-decoration: none; border-bottom: 1px solid currentColor; }
+
+/* asegurar que ninguna tarjeta subraye su contenido al hover/focus */
+.card a, .card a:hover, .card a:focus,
+.briefing-card a, .briefing-card a:hover, .briefing-card a:focus,
+.writeup-card a, .writeup-card a:hover, .writeup-card a:focus,
+.project-card a, .project-card a:hover, .project-card a:focus{
+  text-decoration: none !important;
+}
+
+/* ===================== Hover violeta en títulos de tarjetas ===================== */
+.card .title, .card h3, .briefing-card .title{
+  transition: color .18s ease, background .18s ease;
+}
+.card:hover .title, .card:hover h3, .briefing-card:hover .title{
+  background: linear-gradient(90deg, var(--accent-2), var(--accent));
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent; text-decoration: none;
+}
+
+/* ===================== Accesibilidad: foco visible en elementos clicables ===================== */
+a:focus-visible, .btn:focus-visible, .pill-nav:focus-visible{
+  outline: 3px solid #B3A0FF; outline-offset: 2px;
+}
+
+
