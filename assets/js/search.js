@@ -1,103 +1,149 @@
-/* Lunr search for SparkHacky */
 (function () {
-  const $input = document.querySelector('#global-search');
-  const $results = document.querySelector('#search-results');
+  const INPUT_ID = "site-search";
+  const RESULTS_ID = "search-results";
+  const INDEX_URL = "/search.json";             // tu site es user.github.io -> raíz
+  const MAX_RESULTS = 10;
 
-  if (!$input || !$results) return;
+  const $ = (sel) => document.querySelector(sel);
+  const input = document.getElementById(INPUT_ID);
+  const results = document.getElementById(RESULTS_ID);
+  if (!input || !results) return;
 
-  // util: quitar acentos
-  const fold = (s) => s.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
+  let index = [];
+  let cursor = -1; // para navegación con teclas
 
-  // debounce para no indexar cada tecla
-  const debounce = (fn, ms=120) => {
-    let t; return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms) };
+  // Utilidades
+  const normalize = (s) => (s || "")
+    .toString()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "");
+
+  const debounce = (fn, ms = 150) => {
+    let t;
+    return (...args) => {
+      clearTimeout(t);
+      t = setTimeout(() => fn.apply(null, args), ms);
+    };
   };
 
-  let idx;     // índice lunr
-  let store = []; // documentos planos
-
-  const load = async () => {
+  const highlight = (text, q) => {
+    if (!q) return text;
     try {
-      const res = await fetch((window.__BASEURL__ || '') + '/search.json', { cache: 'no-store' });
-      const data = await res.json();
-
-      store = []
-        .concat(data.posts || [])
-        .concat(data.writeups || [])
-        .map(doc => ({
-          id: doc.id,
-          title: doc.title || '',
-          url: doc.url,
-          type: doc.type,
-          date: doc.date || '',
-          tags: (doc.tags || []).join(' '),
-          categories: (doc.categories || []).join(' '),
-          excerpt: doc.excerpt || '',
-          content: doc.content || ''
-        }));
-
-      // crear índice
-      idx = lunr(function () {
-        this.ref('id');
-        this.field('title', { boost: 10 });
-        this.field('tags',  { boost: 6 });
-        this.field('categories', { boost: 4 });
-        this.field('excerpt', { boost: 2 });
-        this.field('content');
-
-        store.forEach(d => {
-          this.add({
-            id: d.id,
-            title: fold(d.title),
-            tags: fold(d.tags),
-            categories: fold(d.categories),
-            excerpt: fold(d.excerpt),
-            content: fold(d.content)
-          });
-        }, this);
-      });
-
-    } catch (e) {
-      console.error('Search init error:', e);
+      const esc = q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      return text.replace(new RegExp(`(${esc})`, "ig"), "<mark>$1</mark>");
+    } catch {
+      return text;
     }
   };
 
-  const template = (hit) => {
-    const doc = store.find(d => d.id === hit.ref);
-    if (!doc) return '';
-    const badge = doc.type === 'writeup' ? 'Writeup' : 'Briefing';
-    return `
-      <a class="search-item" href="${doc.url}">
-        <strong>${doc.title}</strong>
-        <span class="meta">· ${badge}${doc.date ? ' · ' + doc.date : ''}</span>
-      </a>
-    `;
+  // Carga índice (posts + writeups)
+  fetch(INDEX_URL, { cache: "no-store" })
+    .then((r) => r.json())
+    .then((json) => {
+      index = []
+        .concat(json.posts || [])
+        .concat(json.writeups || [])
+        .map((item) => ({
+          ...item,
+          _norm: {
+            title: normalize(item.title),
+            excerpt: normalize(item.excerpt),
+            tags: normalize((item.tags || []).join(" ")),
+            categories: normalize((item.categories || []).join(" ")),
+            content: normalize(item.content).slice(0, 2000) // recorta para rendimiento
+          }
+        }));
+    })
+    .catch((e) => {
+      console.error("[search] No se pudo cargar /search.json", e);
+    });
+
+  // Render resultados
+  const render = (items, q) => {
+    if (!items.length) {
+      results.innerHTML = "";
+      results.hidden = true;
+      cursor = -1;
+      return;
+    }
+    results.innerHTML = items
+      .slice(0, MAX_RESULTS)
+      .map((it, i) => {
+        const type = it.type === "writeup" ? "Writeup" : "Briefing";
+        return `
+          <a class="search-item" href="${it.url}" data-idx="${i}" role="option">
+            <div class="search-item-title">${highlight(it.title, q)}</div>
+            <div class="search-item-meta">${type} • ${it.date || ""}</div>
+          </a>
+        `;
+      })
+      .join("");
+    results.hidden = false;
+    cursor = -1;
   };
 
-  const render = (html) => {
-    $results.innerHTML = html;
-    $results.style.display = html ? 'block' : 'none';
-  };
+  // Búsqueda
+  const doSearch = debounce(() => {
+    const q = normalize(input.value.trim());
+    if (!q || index.length === 0) {
+      results.innerHTML = "";
+      results.hidden = true;
+      cursor = -1;
+      return;
+    }
+    const tokens = q.split(/\s+/).filter(Boolean);
+    const filtered = index.filter((it) =>
+      tokens.every((t) =>
+        it._norm.title.includes(t) ||
+        it._norm.tags.includes(t) ||
+        it._norm.categories.includes(t) ||
+        it._norm.excerpt.includes(t)
+        // si quieres incluir contenido completo, añade:
+        // || it._norm.content.includes(t)
+      )
+    );
+    render(filtered, input.value.trim());
+  }, 120);
 
-  const onSearch = debounce((q) => {
-    const query = fold(q.trim());
-    if (!query) return render('');
-    // búsqueda flexible: palabras sueltas y comodines
-    let r = idx.search(query + '* ' + query.split(/\s+/).map(s => '+'+s+'*').join(' '));
-    // limitar resultados
-    r = r.slice(0, 10);
-    render(r.map(template).join(''));
-  }, 90);
-
-  // eventos
-  $input.addEventListener('input', (e) => onSearch(e.target.value));
-  document.addEventListener('click', (e) => {
-    if (!$results.contains(e.target) && e.target !== $input) render('');
+  // Interacción
+  input.addEventListener("input", doSearch);
+  input.addEventListener("focus", () => {
+    if (results.innerHTML) results.hidden = false;
   });
-  $input.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') { render(''); $input.blur(); }
+
+  input.addEventListener("keydown", (e) => {
+    const items = Array.from(results.querySelectorAll(".search-item"));
+    if (!items.length || results.hidden) return;
+
+    switch (e.key) {
+      case "ArrowDown":
+        e.preventDefault();
+        cursor = (cursor + 1) % items.length;
+        items.forEach((el, i) => el.classList.toggle("is-active", i === cursor));
+        items[cursor].scrollIntoView({ block: "nearest" });
+        break;
+      case "ArrowUp":
+        e.preventDefault();
+        cursor = (cursor - 1 + items.length) % items.length;
+        items.forEach((el, i) => el.classList.toggle("is-active", i === cursor));
+        items[cursor].scrollIntoView({ block: "nearest" });
+        break;
+      case "Enter":
+        e.preventDefault();
+        if (cursor >= 0) items[cursor].click();
+        else items[0]?.click();
+        break;
+      case "Escape":
+        results.hidden = true;
+        cursor = -1;
+        break;
+    }
   });
 
-  // iniciar
-  load();
+  document.addEventListener("click", (e) => {
+    if (!results.contains(e.target) && e.target !== input) {
+      results.hidden = true;
+    }
+  });
 })();
