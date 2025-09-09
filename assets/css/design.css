@@ -361,3 +361,36 @@ a:hover{text-decoration:underline}
 /* pequeña separación global bajo secciones largas */
 .home-section{ margin: 2.5rem 0 3rem; }
 
+/* ===== Cabeceras de sección centradas (home) ===== */
+.section-head{
+  text-align:center;
+  max-width:70ch;
+  margin:0 auto 1.2rem;
+}
+.section-head .lede{ color:var(--ink-2); }
+
+/* ===== Grids centradas en home ===== */
+/* Convertimos a flex para que 1 sola card también quede centrada */
+.cards-xl,
+.home-section .grid{
+  display:flex;
+  flex-wrap:wrap;
+  gap:2rem;
+  justify-content:center;   /* <- centro horizontal */
+  align-items:stretch;
+  margin:0 auto;
+}
+
+/* Tamaños recomendados de las cards en la home */
+.briefing-card{ width:min(100%, 560px); }     /* briefings (2 columnas) */
+.home-section .card{ width:min(100%, 520px); }/* writeups/proyectos (2 col) */
+
+/* En pantallas estrechas ocuparán 1 col al 100% automáticamente */
+@media (max-width: 700px){
+  .briefing-card, .home-section .card{ width:100%; }
+}
+
+/* Espaciado extra entre bloques de la home */
+.home-section{ margin:2.5rem auto 3.5rem; }
+
+
