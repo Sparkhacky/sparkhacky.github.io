@@ -51,7 +51,7 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
 /* ========================================================================== */
 .container,
 .container-wide{ max-width:var(--maxw); margin:0 auto; padding:1.2rem 1rem 3rem }
-.home-section{ position:relative; z-index:0; margin:1.4rem auto 1.9rem } /* compacto */
+.home-section{ position:relative; z-index:0} /* compacto */
 .prose{ margin-bottom:3rem }
 
 /* Alternancia de color por sección (sutil, sin líneas duras) */
@@ -387,7 +387,6 @@ a:hover, .site-nav a:hover, .pill-nav:hover, .btn:hover{ text-decoration:none }
 .home-section::before{ content:none !important; }
 
 /* Compacta un poco el espaciado entre secciones */
-.home-section{ margin: 0.8rem auto 1.2rem !important; }
 .home-section:first-of-type{ margin-top: 0 !important; }
 .home-section:last-of-type{ margin-bottom: 2rem !important; }
 
